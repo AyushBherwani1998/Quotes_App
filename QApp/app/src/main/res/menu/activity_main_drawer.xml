@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item android:title="@string/categories">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/loveQuotes"
+                    android:title="@string/love_quotes" />
+                <item
+                    android:id="@+id/inspirationalQutoes"
+                    android:title="@string/inspirtaional_quotes" />
+                <item
+                    android:id="@+id/breakupQuotes"
+                    android:title="@string/break_quotes" />
+                <item
+                    android:id="@+id/friendshipQuotes"
+                    android:title="@string/friendship_quotes" />
+                <item
+                    android:id="@+id/favourtieQuotes"
+                    android:title="@string/favourite_quotes"/>
+            </group>
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">QApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome">Welcome</string>
+    <string name="quotes_app">Quotes App</string>
+    <string name="motivational_quotes">Motivational Quotes</string>
+    <string name="love_quotes">Love Quotes</string>
+    <string name="inspirtaional_quotes">Inspirtaional Quotes</string>
+    <string name="break_quotes">Break Quotes</string>
+    <string name="friendship_quotes">Friendship Quotes</string>
+    <string name="favourite_quotes">Favourite Quotes</string>
+    <string name="categories">Categories</string>
+    <string name="next_quote">Next Quote</string>
+    <string name="hello">Hello</string>
+    <string name="last_quote">Last Quote</string>
+    <string name="share">Share this Quote with</string>
+    <string name="favorite">Favorite</string>
+    <string name="about_us">About Us</string>
+</resources>
