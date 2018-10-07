@@ -3,8 +3,11 @@ package com.example.ayush.qapp;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
@@ -68,6 +71,8 @@ public class MainActivity extends AppCompatActivity
         Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
         mQuoteTextView.setTypeface(roboto);
 
+
+
         mShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +114,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         mQuoteTextView.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onClick(View v) {
                 String data = mQuoteTextView.getText().toString();
@@ -127,8 +133,14 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Added to Favorites", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
+                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
+                    Snackbar.make(view, "Added to Favorites", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }else{
+                    Snackbar.make(view, "Already Added to Favorites", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
 
@@ -168,6 +180,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_favorite) {
+            startActivity(new Intent(this,Favorite_Quotes.class));
             return true;
         }
 
@@ -185,15 +198,19 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.loveQuotes) {
+            startActivity(new Intent(this,Love_Quotes.class));
 
         } else if (id == R.id.inspirationalQutoes) {
+            startActivity(new Intent(this,Inspiration_Quotes.class));
 
         } else if (id == R.id.breakupQuotes) {
+            startActivity(new Intent(this,Breakup_Quotes.class));
 
         } else if (id == R.id.favourtieQuotes) {
+            startActivity(new Intent(this,Favorite_Quotes.class));
 
         } else if(id == R.id.friendshipQuotes){
-
+            startActivity(new Intent(this,Friendship_Quotes.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

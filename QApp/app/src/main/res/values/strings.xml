@@ -9,7 +9,7 @@
     <string name="motivational_quotes">Motivational Quotes</string>
     <string name="love_quotes">Love Quotes</string>
     <string name="inspirtaional_quotes">Inspirtaional Quotes</string>
-    <string name="break_quotes">Break Quotes</string>
+    <string name="break_quotes">Breakup Quotes</string>
     <string name="friendship_quotes">Friendship Quotes</string>
     <string name="favourite_quotes">Favourite Quotes</string>
     <string name="categories">Categories</string>
@@ -19,4 +19,9 @@
     <string name="share">Share this Quote with</string>
     <string name="favorite">Favorite</string>
     <string name="about_us">About Us</string>
+    <string name="title_activity_love__quotes">Love_Quotes</string>
+    <string name="title_activity_inspiration__quotes">Inspiration_Quotes</string>
+    <string name="title_activity_breakup__quotes">Breakup_Quotes</string>
+    <string name="title_activity_friendship__quotes">Friendship_Quotes</string>
+    <string name="title_activity_favorite__quotes">Favorite_Quotes</string>
 </resources>
