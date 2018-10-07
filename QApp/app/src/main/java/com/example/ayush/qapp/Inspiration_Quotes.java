@@ -152,6 +152,7 @@ public class Inspiration_Quotes extends AppCompatActivity {
         }
 
         if(id == R.id.action_aboutUs){
+            startActivity(new Intent(this,About_US.class));
             return true;
         }
 

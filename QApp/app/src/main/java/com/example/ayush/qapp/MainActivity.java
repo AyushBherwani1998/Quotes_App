@@ -185,6 +185,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if(id == R.id.action_aboutUs){
+            startActivity(new Intent(this,About_US.class));
             return true;
         }
 
@@ -211,6 +212,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if(id == R.id.friendshipQuotes){
             startActivity(new Intent(this,Friendship_Quotes.class));
+        }else if(id == R.id.aboutUs){
+            startActivity(new Intent(this,About_US.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

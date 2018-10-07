@@ -23,4 +23,13 @@
             </group>
         </menu>
     </item>
+    <item android:title="Others">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/aboutUs"
+                    android:title="@string/about_us"/>
+            </group>
+        </menu>
+    </item>
 </menu>

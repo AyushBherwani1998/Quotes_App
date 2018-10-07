@@ -2,6 +2,7 @@ package com.example.ayush.qapp;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.MessageQueue;
@@ -156,6 +157,7 @@ public class Favorite_Quotes extends AppCompatActivity {
         }
 
         if(id == R.id.action_aboutUs){
+            startActivity(new Intent(this,About_US.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

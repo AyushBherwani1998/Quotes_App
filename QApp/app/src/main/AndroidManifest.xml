@@ -43,7 +43,10 @@
             android:name=".Favorite_Quotes"
             android:label="@string/favourite_quotes"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".About_US"
+            android:label="@string/about_us"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
