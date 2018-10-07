@@ -24,4 +24,6 @@
     <string name="title_activity_breakup__quotes">Breakup_Quotes</string>
     <string name="title_activity_friendship__quotes">Friendship_Quotes</string>
     <string name="title_activity_favorite__quotes">Favorite_Quotes</string>
+    <string name="about_me">About Me</string>
+    <string name="ayush_bherwani">Ayush Bherwani</string>
 </resources>
