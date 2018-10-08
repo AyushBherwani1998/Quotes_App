@@ -1,5 +1,6 @@
 package com.example.ayush.qapp;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
@@ -42,6 +43,7 @@ public class Inspiration_Quotes extends AppCompatActivity {
             "If you are afraid of falling off the mountain, don’t allow it to deter you from climbing.Just remember to be cautious once you’re at the top.",
             "You have enemies? Good. That means you’ve stood up for something, sometime in your life."};
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,14 +64,35 @@ public class Inspiration_Quotes extends AppCompatActivity {
         Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
         mQuoteTextView.setTypeface(roboto);
 
-        mQuoteTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
-                assert clipboardManager != null;
-                clipboardManager.setPrimaryClip(clipData);
-                displayToast("Copied to Clipboard");
+        mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Inspiration_Quotes.this){
+            public void onSwipeRight() {
+                if(i>0){
+                    i--;
+                    mQuoteTextView.setText(InspirationalQuotes[i]);
+                }else{
+                    i=InspirationalQuotes.length-1;
+                    mQuoteTextView.setText(InspirationalQuotes[i]);
+                }
+            }
+
+            public void onSwipeLeft() {
+                if(i<InspirationalQuotes.length-1){
+                    i++;
+                    mQuoteTextView.setText(InspirationalQuotes[i]);
+                }else{
+                    i=0;
+                    mQuoteTextView.setText(InspirationalQuotes[i]);
+                }
+            }
+
+            public void onSwipeTop(){
+                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
+                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
+                    displayToast("Added to Favorites");
+                }else{
+                    displayToast("Already Added to Favorites");
+                }
+
             }
         });
 

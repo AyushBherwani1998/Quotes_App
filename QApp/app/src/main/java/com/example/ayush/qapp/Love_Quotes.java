@@ -1,5 +1,6 @@
 package com.example.ayush.qapp;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
@@ -37,6 +38,7 @@ public class Love_Quotes extends AppCompatActivity {
     ImageButton mShareButton;
     TextView mQuoteTextView;
     static int i = 0;
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,15 +74,35 @@ public class Love_Quotes extends AppCompatActivity {
 
         mQuoteTextView.setText(LoveQuotes[i]);
 
-        mQuoteTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String data = mQuoteTextView.getText().toString();
-                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",data);
-                assert clipboardManager != null;
-                clipboardManager.setPrimaryClip(clipData);
-                displayToast("Copied to Clipboard");
+        mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Love_Quotes.this){
+            public void onSwipeRight() {
+                if(i>0){
+                    i--;
+                    mQuoteTextView.setText(LoveQuotes[i]);
+                }else{
+                    i=LoveQuotes.length-1;
+                    mQuoteTextView.setText(LoveQuotes[i]);
+                }
+            }
+
+            public void onSwipeLeft() {
+                if(i<LoveQuotes.length-1){
+                    i++;
+                    mQuoteTextView.setText(LoveQuotes[i]);
+                }else{
+                    i=0;
+                    mQuoteTextView.setText(LoveQuotes[i]);
+                }
+            }
+
+            public void onSwipeTop(){
+                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
+                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
+                    displayToast("Added to Favorites");
+                }else{
+                    displayToast("Already Added to Favorites");
+                }
+
             }
         });
 

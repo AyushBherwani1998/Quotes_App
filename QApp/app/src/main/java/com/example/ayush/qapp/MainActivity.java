@@ -1,5 +1,6 @@
 package com.example.ayush.qapp;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity
             "I stopped obsessing over whether or not I was any good and just focused on ‘How do I get better?’",
             "Far away there in the sunshine are my highest aspirations. I may not reach them, but I can look up and see their beauty, believe in them, and try to follow where they lead."
     };
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,16 +115,35 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        mQuoteTextView.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
-            @Override
-            public void onClick(View v) {
-                String data = mQuoteTextView.getText().toString();
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("Copied Quote",data);
-                assert clipboard != null;
-                clipboard.setPrimaryClip(clip);
-                displayToast("Copied to Clipboard");
+        mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this){
+            public void onSwipeRight() {
+                if(i>0){
+                    i--;
+                    mQuoteTextView.setText(motivationalQuotes[i]);
+                }else{
+                    i=motivationalQuotes.length-1;
+                    mQuoteTextView.setText(motivationalQuotes[i]);
+                }
+            }
+
+            public void onSwipeLeft() {
+                if(i<motivationalQuotes.length-1){
+                    i++;
+                    mQuoteTextView.setText(motivationalQuotes[i]);
+                }else{
+                    i=0;
+                    mQuoteTextView.setText(motivationalQuotes[i]);
+                }
+            }
+
+            public void onSwipeTop(){
+                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
+                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
+                    displayToast("Added to Favorites");
+                }else{
+                    displayToast("Already Added to Favorites");
+                }
+
             }
         });
 
