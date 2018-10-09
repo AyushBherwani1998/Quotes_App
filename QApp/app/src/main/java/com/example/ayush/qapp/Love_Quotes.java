@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.MessageQueue;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
@@ -52,6 +53,7 @@ public class Love_Quotes extends AppCompatActivity {
         mLastQuote = findViewById(R.id.lastQuoteButton);
         mShareButton = findViewById(R.id.shareButton);
         mQuoteTextView = findViewById(R.id.QuoteTextView);
+        ConstraintLayout constraintLayout = findViewById(R.id.mainView);
 
 
         Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
@@ -73,6 +75,38 @@ public class Love_Quotes extends AppCompatActivity {
         });
 
         mQuoteTextView.setText(LoveQuotes[i]);
+
+        constraintLayout.setOnTouchListener(new OnSwipeTouchListener(Love_Quotes.this){
+            public void onSwipeRight() {
+                if(i>0){
+                    i--;
+                    mQuoteTextView.setText(LoveQuotes[i]);
+                }else{
+                    i=LoveQuotes.length-1;
+                    mQuoteTextView.setText(LoveQuotes[i]);
+                }
+            }
+
+            public void onSwipeLeft() {
+                if(i<LoveQuotes.length-1){
+                    i++;
+                    mQuoteTextView.setText(LoveQuotes[i]);
+                }else{
+                    i=0;
+                    mQuoteTextView.setText(LoveQuotes[i]);
+                }
+            }
+
+            public void onSwipeTop(){
+                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
+                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
+                    displayToast("Added to Favorites");
+                }else{
+                    displayToast("Already Added to Favorites");
+                }
+
+            }
+        });
 
         mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Love_Quotes.this){
             public void onSwipeRight() {

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.MessageQueue;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
@@ -59,12 +60,45 @@ public class Breakup_Quotes extends AppCompatActivity {
         mNextButton = findViewById(R.id.nextQuoteButoon);
         mShareButton =  findViewById(R.id.shareButton);
         mQuoteTextView = findViewById(R.id.QuoteTextView);
+        ConstraintLayout constraintLayout = findViewById(R.id.mainView);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
         mQuoteTextView.setTypeface(roboto);
+
+        constraintLayout.setOnTouchListener(new OnSwipeTouchListener(Breakup_Quotes.this){
+            public void onSwipeRight() {
+                if(i>0){
+                    i--;
+                    mQuoteTextView.setText(BreakupQuotes[i]);
+                }else{
+                    i=BreakupQuotes.length-1;
+                    mQuoteTextView.setText(BreakupQuotes[i]);
+                }
+            }
+
+            public void onSwipeLeft() {
+                if(i<BreakupQuotes.length-1){
+                    i++;
+                    mQuoteTextView.setText(BreakupQuotes[i]);
+                }else{
+                    i=0;
+                    mQuoteTextView.setText(BreakupQuotes[i]);
+                }
+            }
+
+            public void onSwipeTop(){
+                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
+                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
+                    displayToast("Added to Favorites");
+                }else{
+                    displayToast("Already Added to Favorites");
+                }
+
+            }
+        });
 
         mQuoteTextView.setText(BreakupQuotes[i]);
         mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Breakup_Quotes.this){

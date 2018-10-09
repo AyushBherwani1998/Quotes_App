@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
@@ -61,6 +62,7 @@ public class Friendship_Quotes extends AppCompatActivity {
         mNextQuote = findViewById(R.id.nextQuoteButoon);
         mShareButton = findViewById(R.id.shareButton);
         mQuoteTextView = findViewById(R.id.QuoteTextView);
+        ConstraintLayout constraintLayout = findViewById(R.id.mainView);
 
         mQuoteTextView.setText(FriendShipQuotes[i]);
 
@@ -70,6 +72,37 @@ public class Friendship_Quotes extends AppCompatActivity {
         Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
         mQuoteTextView.setTypeface(roboto);
 
+        constraintLayout.setOnTouchListener(new OnSwipeTouchListener(Friendship_Quotes.this){
+            public void onSwipeRight() {
+                if(i>0){
+                    i--;
+                    mQuoteTextView.setText(FriendShipQuotes[i]);
+                }else{
+                    i=FriendShipQuotes.length-1;
+                    mQuoteTextView.setText(FriendShipQuotes[i]);
+                }
+            }
+
+            public void onSwipeLeft() {
+                if(i<FriendShipQuotes.length-1){
+                    i++;
+                    mQuoteTextView.setText(FriendShipQuotes[i]);
+                }else{
+                    i=0;
+                    mQuoteTextView.setText(FriendShipQuotes[i]);
+                }
+            }
+
+            public void onSwipeTop(){
+                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
+                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
+                    displayToast("Added to Favorites");
+                }else{
+                    displayToast("Already Added to Favorites");
+                }
+
+            }
+        });
 
         mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Friendship_Quotes.this){
             public void onSwipeRight() {

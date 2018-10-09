@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity
         mQuoteTextView = findViewById(R.id.QuoteTextView);
         mNextQuoteButton = findViewById(R.id.nextQuoteButoon);
         mLastQuoteButton = findViewById(R.id.lastQuoteButton);
+        ConstraintLayout constraintLayout = findViewById(R.id.mainView);
 
         mQuoteTextView.setText(motivationalQuotes[i]);
 
@@ -112,6 +114,38 @@ public class MainActivity extends AppCompatActivity
                     i=motivationalQuotes.length-1;
                     mQuoteTextView.setText(motivationalQuotes[i]);
                 }
+            }
+        });
+
+        constraintLayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this){
+            public void onSwipeRight() {
+                if(i>0){
+                    i--;
+                    mQuoteTextView.setText(motivationalQuotes[i]);
+                }else{
+                    i=motivationalQuotes.length-1;
+                    mQuoteTextView.setText(motivationalQuotes[i]);
+                }
+            }
+
+            public void onSwipeLeft() {
+                if(i<motivationalQuotes.length-1){
+                    i++;
+                    mQuoteTextView.setText(motivationalQuotes[i]);
+                }else{
+                    i=0;
+                    mQuoteTextView.setText(motivationalQuotes[i]);
+                }
+            }
+
+            public void onSwipeTop(){
+                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
+                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
+                    displayToast("Added to Favorites");
+                }else{
+                    displayToast("Already Added to Favorites");
+                }
+
             }
         });
 
