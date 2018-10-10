@@ -3,10 +3,11 @@ package com.example.ayush.qapp;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.MessageQueue;
-import android.os.Parcelable;
+
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
@@ -14,19 +15,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedList;
 
 public class Favorite_Quotes extends AppCompatActivity {
 
-    public static LinkedList<String> FavoriteQuotes = new LinkedList<>();
+    public static LinkedList<String> FavoriteQuotes;
     Button mNextButton;
     Button mLastButton;
     ImageButton mShareButton;
@@ -35,8 +34,6 @@ public class Favorite_Quotes extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_favorite__quotes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -152,17 +149,16 @@ public class Favorite_Quotes extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.action_favorite){
+        if (id == R.id.action_favorite) {
             displayToast("Already in Favortie Quotes");
         }
 
-        if(id == R.id.action_aboutUs){
-            startActivity(new Intent(this,About_US.class));
+        if (id == R.id.action_aboutUs) {
+            startActivity(new Intent(this, About_US.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }
+
 
