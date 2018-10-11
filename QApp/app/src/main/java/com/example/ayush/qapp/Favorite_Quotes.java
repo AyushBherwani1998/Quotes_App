@@ -7,12 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 
+import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -81,6 +84,24 @@ public class Favorite_Quotes extends AppCompatActivity {
                    }
                }
             }
+
+            public void onSwipeTop(){
+                if(!FavoriteQuotes.isEmpty()){
+                    Snackbar.make(getWindow().getDecorView().getRootView(),"Deleted From Favorites",Snackbar.LENGTH_LONG).show();
+                    FavoriteQuotes.remove(mQuoteTextView.getText().toString());
+                    if(FavoriteQuotes.isEmpty()){
+                        mNextButton.setVisibility(View.INVISIBLE);
+                        mShareButton.setVisibility(View.INVISIBLE);
+                        mLastButton.setVisibility(View.INVISIBLE);
+                        mQuoteTextView.setText("OPPS!!\n"+"NO QUOTES HAVE BEEN ADDED TO FAVORITES.");
+                    }else if(!FavoriteQuotes.isEmpty() && i>=FavoriteQuotes.size()){
+                        i--;
+                        mQuoteTextView.setText(FavoriteQuotes.get(i));
+                    }else {
+                        mQuoteTextView.setText(FavoriteQuotes.get(i));
+                    }
+                }
+            }
         });
 
        mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Favorite_Quotes.this){
@@ -103,6 +124,24 @@ public class Favorite_Quotes extends AppCompatActivity {
                        mQuoteTextView.setText(FavoriteQuotes.get(i));
                    }else {
                        i=0;
+                       mQuoteTextView.setText(FavoriteQuotes.get(i));
+                   }
+               }
+           }
+
+           public void onSwipeTop(){
+               if(!FavoriteQuotes.isEmpty()){
+                   Snackbar.make(getWindow().getDecorView().getRootView(),"Deleted From Favorites",Snackbar.LENGTH_LONG).show();
+                   FavoriteQuotes.remove(mQuoteTextView.getText().toString());
+                   if(FavoriteQuotes.isEmpty()){
+                       mNextButton.setVisibility(View.INVISIBLE);
+                       mShareButton.setVisibility(View.INVISIBLE);
+                       mLastButton.setVisibility(View.INVISIBLE);
+                       mQuoteTextView.setText("OPPS!!\n"+"NO QUOTES HAVE BEEN ADDED TO FAVORITES.");
+                   }else if(!FavoriteQuotes.isEmpty() && i>=FavoriteQuotes.size()){
+                       i--;
+                       mQuoteTextView.setText(FavoriteQuotes.get(i));
+                   }else {
                        mQuoteTextView.setText(FavoriteQuotes.get(i));
                    }
                }
@@ -163,7 +202,7 @@ public class Favorite_Quotes extends AppCompatActivity {
                         mNextButton.setVisibility(View.INVISIBLE);
                         mShareButton.setVisibility(View.INVISIBLE);
                         mLastButton.setVisibility(View.INVISIBLE);
-                        mQuoteTextView.setText(getString(R.string.opps)+getString(R.string.nofavorite_text));
+                        mQuoteTextView.setText("OPPS!!\n"+"NO QUOTES HAVE BEEN ADDED TO FAVORITES.");
                     }else if(!FavoriteQuotes.isEmpty() && i>=FavoriteQuotes.size()){
                         i--;
                         mQuoteTextView.setText(FavoriteQuotes.get(i));
@@ -171,7 +210,7 @@ public class Favorite_Quotes extends AppCompatActivity {
                         mQuoteTextView.setText(FavoriteQuotes.get(i));
                     }
                 }else {
-                    Snackbar.make(view, "NO FAVORTIE QUOTE TO DELTE", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "No Quotes to Delete", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }
@@ -192,13 +231,14 @@ public class Favorite_Quotes extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_favorite) {
-            displayToast("Already in Favortie Quotes");
+            return true;
         }
 
         if (id == R.id.action_aboutUs) {
             startActivity(new Intent(this, About_US.class));
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

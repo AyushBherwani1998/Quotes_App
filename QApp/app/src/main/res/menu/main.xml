@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_favorite"
-        android:orderInCategory="10"
-        android:title="@string/favorite"
+        android:orderInCategory="20"
+        android:title="@string/favourite_quotes"
         android:icon="@drawable/ic_favorite_black_24dp"
         app:showAsAction="ifRoom" />
     <item

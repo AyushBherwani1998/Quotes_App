@@ -209,8 +209,8 @@ public class Friendship_Quotes extends AppCompatActivity {
             return true;
         }
 
-        if(id == R.id.action_aboutUs){
-            startActivity(new Intent(this,About_US.class));
+        if(id == R.id.action_aboutUs) {
+            startActivity(new Intent(this, About_US.class));
             return true;
         }
 
