@@ -96,9 +96,9 @@ public class Friendship_Quotes extends AppCompatActivity {
             public void onSwipeTop(){
                 if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
                     Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    displayToast("Added to Favorites");
+                    Snackbar.make(getWindow().getDecorView().getRootView(),"Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }else{
-                    displayToast("Already Added to Favorites");
+                    Snackbar.make(getWindow().getDecorView().getRootView(),"Already Added to Favorites",Snackbar.LENGTH_LONG);
                 }
 
             }
@@ -128,9 +128,9 @@ public class Friendship_Quotes extends AppCompatActivity {
             public void onSwipeTop(){
                 if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
                     Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    displayToast("Added to Favorites");
+                    Snackbar.make(getWindow().getDecorView().getRootView(),"Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }else{
-                    displayToast("Already Added to Favorites");
+                    Snackbar.make(getWindow().getDecorView().getRootView(),"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }
 
             }

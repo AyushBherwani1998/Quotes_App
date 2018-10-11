@@ -1,13 +1,15 @@
 package com.example.ayush.qapp;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
@@ -30,7 +32,9 @@ public class Favorite_Quotes extends AppCompatActivity {
     Button mLastButton;
     ImageButton mShareButton;
     TextView mQuoteTextView;
+    ConstraintLayout constraintLayout;
     public static int i = 0;
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,7 @@ public class Favorite_Quotes extends AppCompatActivity {
         mQuoteTextView = findViewById(R.id.QuoteTextView);
         mLastButton = findViewById(R.id.lastQuoteButton);
         mShareButton = findViewById(R.id.shareButton);
+        constraintLayout = findViewById(R.id.mainView);
 
        if(!FavoriteQuotes.isEmpty()){
            mQuoteTextView.setText(FavoriteQuotes.get(i));
@@ -52,8 +57,60 @@ public class Favorite_Quotes extends AppCompatActivity {
            mQuoteTextView.setText("OPPS!!\n"+"NO QUOTES HAVE BEEN ADDED TO FAVORITES.");
        }
 
-        Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
-        mQuoteTextView.setTypeface(roboto);
+        constraintLayout.setOnTouchListener(new OnSwipeTouchListener(Favorite_Quotes.this){
+            public void onSwipeRight() {
+                if(!FavoriteQuotes.isEmpty()){
+                    if(i>0){
+                        i--;
+                        mQuoteTextView.setText(FavoriteQuotes.get(i));
+                    }else {
+                        i = FavoriteQuotes.size()-1;
+                        mQuoteTextView.setText(FavoriteQuotes.get(i));
+                    }
+                }
+            }
+
+            public void onSwipeLeft() {
+               if(!FavoriteQuotes.isEmpty()){
+                   if(i<FavoriteQuotes.size()-1){
+                       i++;
+                       mQuoteTextView.setText(FavoriteQuotes.get(i));
+                   }else {
+                       i=0;
+                       mQuoteTextView.setText(FavoriteQuotes.get(i));
+                   }
+               }
+            }
+        });
+
+       mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Favorite_Quotes.this){
+           public void onSwipeRight() {
+               if(!FavoriteQuotes.isEmpty()){
+                   if(i>0){
+                       i--;
+                       mQuoteTextView.setText(FavoriteQuotes.get(i));
+                   }else {
+                       i = FavoriteQuotes.size()-1;
+                       mQuoteTextView.setText(FavoriteQuotes.get(i));
+                   }
+               }
+           }
+
+           public void onSwipeLeft() {
+               if(!FavoriteQuotes.isEmpty()){
+                   if(i<FavoriteQuotes.size()-1){
+                       i++;
+                       mQuoteTextView.setText(FavoriteQuotes.get(i));
+                   }else {
+                       i=0;
+                       mQuoteTextView.setText(FavoriteQuotes.get(i));
+                   }
+               }
+           }
+       });
+
+       Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
+       mQuoteTextView.setTypeface(roboto);
 
        mNextButton.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -93,21 +150,6 @@ public class Favorite_Quotes extends AppCompatActivity {
            }
        });
 
-       mQuoteTextView.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               if(!FavoriteQuotes.isEmpty()){
-                   ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                   ClipData clipData = ClipData.newPlainText("Quote Copied",mQuoteTextView.getText().toString());
-                   assert clipboardManager != null;
-                   clipboardManager.setPrimaryClip(clipData);
-                   displayToast("Copied to Clipboard");
-               }else {
-                   displayToast("This is no Quote to Copy");
-               }
-           }
-       });
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +163,7 @@ public class Favorite_Quotes extends AppCompatActivity {
                         mNextButton.setVisibility(View.INVISIBLE);
                         mShareButton.setVisibility(View.INVISIBLE);
                         mLastButton.setVisibility(View.INVISIBLE);
-                        mQuoteTextView.setText("OPPS!!\n"+"NO QUOTES HAVE BEEN ADDED TO FAVORITES.");
+                        mQuoteTextView.setText(getString(R.string.opps)+getString(R.string.nofavorite_text));
                     }else if(!FavoriteQuotes.isEmpty() && i>=FavoriteQuotes.size()){
                         i--;
                         mQuoteTextView.setText(FavoriteQuotes.get(i));

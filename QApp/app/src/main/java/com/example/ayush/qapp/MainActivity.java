@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
 
             //the method we have create in activity
             applyFontToMenuItem(mi);
-            
+
         }
 
 
@@ -169,9 +169,9 @@ public class MainActivity extends AppCompatActivity
             public void onSwipeTop(){
                 if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
                     Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    displayToast("Added to Favorites");
+                    Snackbar.make(getWindow().getDecorView().getRootView(),"Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }else{
-                    displayToast("Already Added to Favorites");
+                    Snackbar.make(getWindow().getDecorView().getRootView(),"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }
 
             }
@@ -201,9 +201,9 @@ public class MainActivity extends AppCompatActivity
             public void onSwipeTop(){
                 if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
                     Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    displayToast("Added to Favorites");
+                    Snackbar.make(getWindow().getDecorView().getRootView(),"Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }else{
-                    displayToast("Already Added to Favorites");
+                    Snackbar.make(getWindow().getDecorView().getRootView(),"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }
 
             }
@@ -339,7 +339,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void applyFontToMenuItem(MenuItem mi) {
-        Typeface font = Typeface.createFromAsset(getAssets(), "font/Oswald-Regular.ttf");
+        Typeface font = Typeface.createFromAsset(getAssets(), "font/Roboto-Medium.ttf");
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
         mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);

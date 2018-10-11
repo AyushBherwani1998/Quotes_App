@@ -26,4 +26,6 @@
     <string name="title_activity_favorite__quotes">Favorite_Quotes</string>
     <string name="about_me">About Me</string>
     <string name="ayush_bherwani">Ayush Bherwani</string>
+    <string name="nofavorite_text">NO QUOTES HAVE BEEN ADDED TO FAVORITES.</string>
+    <string name="opps">OPPS!!</string>
 </resources>
