@@ -1,12 +1,9 @@
 package com.example.ayush.qapp;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.MessageQueue;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -53,7 +50,7 @@ public class Breakup_Quotes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_breakup__quotes);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mLastButton = findViewById(R.id.lastQuoteButton);
@@ -171,7 +168,7 @@ public class Breakup_Quotes extends AppCompatActivity {
         });
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,10 +182,6 @@ public class Breakup_Quotes extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public void displayToast(String message){
-        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
     }
 
     @Override
