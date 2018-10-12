@@ -1,6 +1,8 @@
 package com.example.ayush.qapp;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -11,6 +13,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.SubMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -29,13 +33,14 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import junit.framework.Test;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ImageView mShareButton;
     TextView mQuoteTextView;
@@ -82,7 +87,7 @@ public class MainActivity extends AppCompatActivity
         mQuoteTextView.setTypeface(roboto);
 
         NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
-        Menu m = navView.getMenu();
+        final Menu m = navView.getMenu();
         for (int i=0;i<m.size();i++) {
             MenuItem mi = m.getItem(i);
             SubMenu subMenu = mi.getSubMenu();
@@ -169,6 +174,13 @@ public class MainActivity extends AppCompatActivity
                 }
 
             }
+            public void onSwipeBottom(){
+                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
+                assert clipboardManager!=null;
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
+            }
         });
 
         mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this){
@@ -199,7 +211,14 @@ public class MainActivity extends AppCompatActivity
                 }else{
                     Snackbar.make(getWindow().getDecorView().getRootView(),"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }
+            }
 
+            public void onSwipeBottom(){
+                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
+                assert clipboardManager!=null;
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
             }
         });
 
