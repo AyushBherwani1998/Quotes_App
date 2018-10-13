@@ -96,6 +96,14 @@ public class Inspiration_Quotes extends AppCompatActivity {
                 }
 
             }
+
+            public void onSwipeBottom(){
+                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
+                assert clipboardManager!=null;
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
+            }
         });
 
         mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Inspiration_Quotes.this){
@@ -127,6 +135,14 @@ public class Inspiration_Quotes extends AppCompatActivity {
                     Snackbar.make(getWindow().getDecorView().getRootView(),"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }
 
+            }
+
+            public void onSwipeBottom(){
+                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
+                assert clipboardManager!=null;
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
             }
         });
 

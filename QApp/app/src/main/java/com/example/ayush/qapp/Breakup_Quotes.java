@@ -1,6 +1,8 @@
 package com.example.ayush.qapp;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -95,6 +97,14 @@ public class Breakup_Quotes extends AppCompatActivity {
                 }
 
             }
+
+            public void onSwipeBottom(){
+                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
+                assert clipboardManager!=null;
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
+            }
         });
 
         mQuoteTextView.setText(BreakupQuotes[i]);
@@ -127,6 +137,14 @@ public class Breakup_Quotes extends AppCompatActivity {
                     Snackbar.make(getWindow().getDecorView().getRootView(),"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }
 
+            }
+
+            public void onSwipeBottom(){
+                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
+                assert clipboardManager!=null;
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
             }
         });
         mShareButton.setOnClickListener(new View.OnClickListener() {

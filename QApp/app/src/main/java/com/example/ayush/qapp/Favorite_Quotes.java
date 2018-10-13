@@ -2,6 +2,8 @@ package com.example.ayush.qapp;
 
 import android.annotation.SuppressLint;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 
 import android.graphics.Typeface;
@@ -100,6 +102,14 @@ public class Favorite_Quotes extends AppCompatActivity {
                     }
                 }
             }
+
+            public void onSwipeBottom(){
+                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
+                assert clipboardManager!=null;
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
+            }
         });
 
        mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Favorite_Quotes.this){
@@ -143,6 +153,14 @@ public class Favorite_Quotes extends AppCompatActivity {
                        mQuoteTextView.setText(FavoriteQuotes.get(i));
                    }
                }
+           }
+
+           public void onSwipeBottom(){
+               ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+               ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
+               assert clipboardManager!=null;
+               clipboardManager.setPrimaryClip(clipData);
+               Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
            }
        });
 
