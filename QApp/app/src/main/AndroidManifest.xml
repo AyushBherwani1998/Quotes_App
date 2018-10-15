@@ -3,7 +3,6 @@
     package="com.example.ayush.qapp">
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -44,9 +43,15 @@
             android:label="@string/favourite_quotes"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".About_US"
+        <activity
+            android:name=".About_US"
             android:label="@string/about_us"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Motivational_Quotes"
+            android:label="@string/title_activity_motivational__quotes"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

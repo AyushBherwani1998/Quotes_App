@@ -102,13 +102,14 @@ public class Favorite_Quotes extends AppCompatActivity {
                     }
                 }
             }
-
             public void onSwipeBottom(){
-                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
-                assert clipboardManager!=null;
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
+                if(!FavoriteQuotes.isEmpty()){
+                    ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                    ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
+                    assert clipboardManager!=null;
+                    clipboardManager.setPrimaryClip(clipData);
+                    Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -156,11 +157,13 @@ public class Favorite_Quotes extends AppCompatActivity {
            }
 
            public void onSwipeBottom(){
-               ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-               ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
-               assert clipboardManager!=null;
-               clipboardManager.setPrimaryClip(clipData);
-               Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
+             if(!FavoriteQuotes.isEmpty()){
+                 ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                 ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
+                 assert clipboardManager!=null;
+                 clipboardManager.setPrimaryClip(clipData);
+                 Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
+             }
            }
        });
 

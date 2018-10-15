@@ -6,6 +6,9 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
+                    android:id="@+id/motivationaQuotes"
+                    android:title="@string/motivational_quotes" />
+                <item
                     android:id="@+id/loveQuotes"
                     android:title="@string/love_quotes" />
                 <item
