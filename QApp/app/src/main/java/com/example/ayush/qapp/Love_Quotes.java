@@ -26,7 +26,7 @@ import java.util.Objects;
 
 public class Love_Quotes extends AppCompatActivity {
 
-    private String LoveQuotes[] = {
+    public static String LoveQuotes[] = {
             "Fall in love with the person who enjoys your madness, not an idiot who forces you to be normal.",
             "Love is more than three words mumbled before bedtime. Love is sustained by action, a pattern of devotion in things we do for each other every day",
             "It is so tiring to hate someone you love.",

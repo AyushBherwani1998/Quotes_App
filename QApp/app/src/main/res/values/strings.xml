@@ -8,7 +8,7 @@
     <string name="quotes_app">Quotes App</string>
     <string name="motivational_quotes">Motivational Quotes</string>
     <string name="love_quotes">Love Quotes</string>
-    <string name="inspirtaional_quotes">Inspirtaional Quotes</string>
+    <string name="inspirtaional_quotes">Inspirational Quotes</string>
     <string name="break_quotes">Breakup Quotes</string>
     <string name="friendship_quotes">Friendship Quotes</string>
     <string name="favourite_quotes">Favourite Quotes</string>
@@ -30,4 +30,5 @@
     <string name="opps">OPPS!!</string>
     <string name="about">I\'m currently pursuing my Graduation fomr Parul University.I have spent last 4 years working on my developeing skills, learning and exploring new Languages and Fremworks. Currently I\'m working as a Freelancer on Fiverr as a WhiteBoard Animator. I\'m a Blockchain enthusiastic. The code for this android App can be found on my Github Respository. Feel free to play around. ThnakYou</string>
     <string name="title_activity_motivational__quotes">Motivational_Quotes</string>
+    <string name="random_quote">Random Quote</string>
 </resources>

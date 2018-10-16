@@ -32,7 +32,7 @@ public class Inspiration_Quotes extends AppCompatActivity {
     TextView mQuoteTextView;
     static int i=0;
 
-    private String InspirationalQuotes[] = {
+    public static String InspirationalQuotes[] = {
             "Don’t rush into any kind of relationship. Work on yourself. Feel yourself, experience yourself, and love yourself. Do this first and you will soon attract that special loving other.",
             "Traveling is like flirting with life. It’s like saying, ‘I would stay and love you, but I have to go; this is my station.",
             "Don’t be the reason someone feels insecure. Be the reason someone feels seen, heard, and supported",

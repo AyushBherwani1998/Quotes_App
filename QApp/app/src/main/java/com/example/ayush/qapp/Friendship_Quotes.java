@@ -27,7 +27,7 @@ import java.util.Objects;
 public class Friendship_Quotes extends AppCompatActivity {
 
     static int i=0;
-    private String FriendShipQuotes[] = {
+    public static String FriendShipQuotes[] = {
             "The best kind of people are the ones that come into your life, and make you see the sun where you once saw clouds. The people that believe in you so much.",
             "I think if I’ve learned anything about friendship, it’s to hang in, stay connected, fight for them, and let them fight for you. Don’t walk away, don’t be distracted, don’t be too busy or tired, don’t take them for granted. Friends are part of the glue that holds life and faith together. Powerful stuff.",
             "I value the friend who for me finds time on his calendar, but I cherish the friend who for me does not consult his calendar.",

@@ -13,8 +13,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.SubMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -25,66 +23,55 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import junit.framework.Test;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ImageView mShareButton;
     TextView mQuoteTextView;
-    Button mNextQuoteButton;
-    Button mLastQuoteButton;
-    static int i=0;
-    String motivationalQuotes[] = {
-            "You must allow yourself to outgrow and depart from certain eras of your life with a gentle sort of ruthlessness",
-            "I think people would be happier if they admitted things more often. In a sense we are all prisoners of some memory, or fear, or disappointment we are all defined by something we can’t change.",
-            "Sometimes you pour your heart out and nothing comes back. Sometimes you pour your heart out and the world falls onto your lap. Keep trying.",
-            "Be a lamp, or a lifeboat, or a ladder. Help someone’s soul heal.",
-            "If you don’t go after what you want, you’ll never have it. If you don’t ask, the answer is always no. If you don’t step forward you are always in the same place",
-            "Every child is an artist. The problem is how to remain an artist once he grows up.",
-            "Focus on what you can do rather what you can’t. Small steps turn into miles.",
-            "Self-forgiveness creates doors that weren’t there before. It’s something that sets you free.",
-            "If you can’t sleep, then get up and do something instead of lying there and worrying. It’s the worry that gets you, not the loss of sleep",
-            "If you hide from all storms, how will you grow?",
-            "If you have been brutally broken, but still have the courage to be gentle to others then you deserve a love deeper than the ocean itself.",
-            "When you stop chasing the wrong things, you give the right things a chance to catch you.",
-            "Empty pockets never held anyone back. Only empty heads and empty hearts can do that.",
-            "Healing is a choice. It is not an easy one because it takes work to turn around your habits. But keep making the choice and shifts will happen.",
-            "There are people less qualified than you, doing the things you want to do, simply because they chose to believe in themselves.",
-            "You will never follow your own inner voice until you clear up the doubts in your mind.",
-            "Any plan is better than no plan, and a good plan executed now is far better than a perfect plan executed too late",
-            "I stopped obsessing over whether or not I was any good and just focused on ‘How do I get better?’",
-            "Far away there in the sunshine are my highest aspirations. I may not reach them, but I can look up and see their beauty, believe in them, and try to follow where they lead."
-    };
-    @SuppressLint("ClickableViewAccessibility")
+    TextView mHeading;
+    ImageButton mRefreshButton;
+    int randomIndex;
+    int randomCategory;
+
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Quotes Hub");
+
         mShareButton = findViewById(R.id.shareButton);
         mQuoteTextView = findViewById(R.id.QuoteTextView);
-        mNextQuoteButton = findViewById(R.id.nextQuoteButoon);
-        mLastQuoteButton = findViewById(R.id.lastQuoteButton);
+        mRefreshButton = findViewById(R.id.refreshButton);
+        mHeading = findViewById(R.id.mainActivityHeading);
+
         ConstraintLayout constraintLayout = findViewById(R.id.mainView);
         loadData();
 
-        mQuoteTextView.setText(motivationalQuotes[i]);
 
         Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
         mQuoteTextView.setTypeface(roboto);
+        mHeading.setTypeface(roboto);
+
+        randomQuote();
+
+        mRefreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               randomQuote();
+            }
+        });
 
         NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
         final Menu m = navView.getMenu();
@@ -118,52 +105,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        mNextQuoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(i<motivationalQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }else{
-                    i=0;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }
-            }
-        });
-
-        mLastQuoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }else{
-                    i=motivationalQuotes.length-1;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }
-            }
-        });
 
         constraintLayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this){
-            public void onSwipeRight() {
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }else{
-                    i=motivationalQuotes.length-1;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }
+
+            public void onSwipeLeft(){
+
+               randomQuote();
             }
 
-            public void onSwipeLeft() {
-                if(i<motivationalQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }else{
-                    i=0;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }
+            public void onSwipeRight(){
+              randomQuote();
             }
+
 
             public void onSwipeTop(){
                 if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
@@ -184,25 +137,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this){
-            public void onSwipeRight() {
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }else{
-                    i=motivationalQuotes.length-1;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }
+
+            public void onSwipeLeft(){
+                randomQuote();
             }
 
-            public void onSwipeLeft() {
-                if(i<motivationalQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }else{
-                    i=0;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }
+            public void onSwipeRight(){
+                randomQuote();
             }
+
 
             public void onSwipeTop(){
                 if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
@@ -360,5 +303,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mi.setTitle(mNewTitle);
     }
 
+    public void randomQuote(){
+        randomCategory = (int) (Math.random()*5);
+        switch (randomCategory){
+            case 0:
+                randomIndex = (int)(Math.random()*Motivational_Quotes.motivationalQuotes.length-1);
+                mQuoteTextView.setText(Motivational_Quotes.motivationalQuotes[randomIndex]);
+                break;
+            case 1:
+                randomIndex = (int)(Math.random()*Love_Quotes.LoveQuotes.length-1);
+                mQuoteTextView.setText(Love_Quotes.LoveQuotes[randomIndex]);
+                break;
+            case 2:
+                randomIndex = (int)(Math.random()*Inspiration_Quotes.InspirationalQuotes.length-1);
+                mQuoteTextView.setText(Inspiration_Quotes.InspirationalQuotes[randomIndex]);
+                break;
+            case 3:
+                randomIndex = (int)(Math.random()*Breakup_Quotes.BreakupQuotes.length-1);
+                mQuoteTextView.setText(Breakup_Quotes.BreakupQuotes[randomIndex]);
+                break;
+            case 4:
+                randomIndex = (int)(Math.random()*Friendship_Quotes.FriendShipQuotes.length-1);
+                mQuoteTextView.setText(Friendship_Quotes.FriendShipQuotes[randomIndex]);
+                break;
+        }
+    }
 
 }

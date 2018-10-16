@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class Breakup_Quotes extends AppCompatActivity {
 
-    private String BreakupQuotes[] = {
+    public static String BreakupQuotes[] = {
             "She was an incomplete human yet a complete catastrophe, one that I curse and crave.",
             "First best is falling in love. Second best is being in love. Least best is falling out of love. But any of it is better than never having been in love.",
             "Healing is a choice. It is not an easy one because it takes work to turn around your habits. But keep making the choice and shifts will happen",

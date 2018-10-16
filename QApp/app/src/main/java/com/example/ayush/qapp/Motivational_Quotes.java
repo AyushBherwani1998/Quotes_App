@@ -30,7 +30,7 @@ public class Motivational_Quotes extends AppCompatActivity {
     Button mNextButton;
     Button mLastButton;
     static int i=0;
-    String motivationalQuotes[] = {
+    public static String motivationalQuotes[] = {
             "You must allow yourself to outgrow and depart from certain eras of your life with a gentle sort of ruthlessness",
             "I think people would be happier if they admitted things more often. In a sense we are all prisoners of some memory, or fear, or disappointment we are all defined by something we can’t change.",
             "Sometimes you pour your heart out and nothing comes back. Sometimes you pour your heart out and the world falls onto your lap. Keep trying.",
