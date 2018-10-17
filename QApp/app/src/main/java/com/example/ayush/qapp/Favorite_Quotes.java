@@ -50,7 +50,7 @@ public class Favorite_Quotes extends AppCompatActivity {
         mLastButton = findViewById(R.id.lastQuoteButton);
         mShareButton = findViewById(R.id.shareButton);
         constraintLayout = findViewById(R.id.mainView);
-
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
        if(!FavoriteQuotes.isEmpty()){
            mQuoteTextView.setText(FavoriteQuotes.get(i));
        }else{
@@ -87,7 +87,7 @@ public class Favorite_Quotes extends AppCompatActivity {
 
             public void onSwipeTop(){
                 if(!FavoriteQuotes.isEmpty()){
-                    Snackbar.make(getWindow().getDecorView().getRootView(),"Deleted From Favorites",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(fab,"Deleted From Favorites",Snackbar.LENGTH_LONG).show();
                     FavoriteQuotes.remove(mQuoteTextView.getText().toString());
                     if(FavoriteQuotes.isEmpty()){
                         mNextButton.setVisibility(View.INVISIBLE);
@@ -140,7 +140,7 @@ public class Favorite_Quotes extends AppCompatActivity {
 
            public void onSwipeTop(){
                if(!FavoriteQuotes.isEmpty()){
-                   Snackbar.make(getWindow().getDecorView().getRootView(),"Deleted From Favorites",Snackbar.LENGTH_LONG).show();
+                   Snackbar.make(fab,"Deleted From Favorites",Snackbar.LENGTH_LONG).show();
                    FavoriteQuotes.remove(mQuoteTextView.getText().toString());
                    if(FavoriteQuotes.isEmpty()){
                        mNextButton.setVisibility(View.INVISIBLE);
@@ -208,7 +208,6 @@ public class Favorite_Quotes extends AppCompatActivity {
            }
        });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabFavoriteQuote);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -51,6 +51,11 @@
             android:name=".Motivational_Quotes"
             android:label="@string/motivational_quotes"
             android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Failure_Quotes"
+            android:parentActivityName=".MainActivity"
+            android:label="@string/failure_quotes"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

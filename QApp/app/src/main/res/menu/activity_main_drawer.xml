@@ -21,6 +21,9 @@
                     android:id="@+id/friendshipQuotes"
                     android:title="@string/friendship_quotes" />
                 <item
+                    android:id="@+id/failureQuotes"
+                    android:title="@string/failure_quotes"/>
+                <item
                     android:id="@+id/favourtieQuotes"
                     android:title="@string/favourite_quotes"/>
             </group>

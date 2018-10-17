@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mRefreshButton = findViewById(R.id.refreshButton);
         mHeading = findViewById(R.id.mainActivityHeading);
 
+       final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         ConstraintLayout constraintLayout = findViewById(R.id.mainView);
         loadData();
 
@@ -121,9 +122,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onSwipeTop(){
                 if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
                     Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(getWindow().getDecorView().getRootView(),"Added to Favorites",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }else{
-                    Snackbar.make(getWindow().getDecorView().getRootView(),"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }
 
             }
@@ -150,9 +151,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onSwipeTop(){
                 if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
                     Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(getWindow().getDecorView().getRootView(),"Added to Favorites",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }else{
-                    Snackbar.make(getWindow().getDecorView().getRootView(),"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }
             }
 
@@ -168,7 +169,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,9 +188,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -255,6 +253,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(this,About_US.class));
         }else if(id == R.id.motivationaQuotes){
             startActivity(new Intent(this,Motivational_Quotes.class));
+        }else if(id == R.id.failureQuotes){
+            startActivity(new Intent(this,Failure_Quotes.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

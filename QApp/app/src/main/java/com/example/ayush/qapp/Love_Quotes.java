@@ -94,6 +94,7 @@ public class Love_Quotes extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         mNextQuote = findViewById(R.id.nextQuoteButoon);
         mLastQuote = findViewById(R.id.lastQuoteButton);
@@ -105,7 +106,6 @@ public class Love_Quotes extends AppCompatActivity {
         Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
         mQuoteTextView.setTypeface(roboto);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,9 +146,9 @@ public class Love_Quotes extends AppCompatActivity {
             public void onSwipeTop(){
                 if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
                     Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(getWindow().getDecorView().getRootView(),"Added to Favorites",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }else{
-                    Snackbar.make(getWindow().getDecorView().getRootView(),"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }
 
             }
@@ -186,9 +186,9 @@ public class Love_Quotes extends AppCompatActivity {
             public void onSwipeTop(){
                 if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
                     Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(getWindow().getDecorView().getRootView(),"Added to Favorites",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }else{
-                    Snackbar.make(getWindow().getDecorView().getRootView(),"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }
 
             }
