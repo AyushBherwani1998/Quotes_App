@@ -7,41 +7,37 @@
     android:background="#FFFFFF"
     android:id="@+id/mainView"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Friendship_Quotes"
-    tools:showIn="@layout/activity_friendship__quotes">
-
+    tools:context=".Failure_Quotes"
+    tools:showIn="@layout/activity_failure__quotes">
 
     <TextView
         android:id="@+id/QuoteTextView"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/roundedtext"
         android:padding="20dp"
         android:textAlignment="center"
-        android:textSize="15sp"
-        android:background="@drawable/roundedtext"
         android:textColor="#000000"
         android:textIsSelectable="true"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.152"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.417" />
+        app:layout_constraintVertical_bias="0.41" />
 
     <ImageButton
         android:id="@+id/shareButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="172dp"
         android:backgroundTint="#FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/nextQuoteButoon"
-        app:layout_constraintStart_toEndOf="@+id/lastQuoteButton"
-        app:layout_constraintTop_toBottomOf="@+id/QuoteTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nextQuoteButoon"
         app:srcCompat="@drawable/ic_share_black_24dp"
         tools:ignore="ContentDescription,VectorDrawableCompat" />
 
@@ -49,33 +45,32 @@
         android:id="@+id/nextQuoteButoon"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="152dp"
         android:background="@drawable/round_button"
         android:padding="10dp"
         android:text="@string/next_quote"
         android:textColor="#FFFFFF"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/QuoteTextView"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded,SmallSp" />
 
     <Button
         android:id="@+id/lastQuoteButton"
-        android:layout_width="wrap_content"
+        android:layout_width="92dp"
         android:layout_height="32dp"
-        android:textColor="#FFFFFF"
-        android:padding="10dp"
-        android:textSize="10sp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="152dp"
         android:background="@drawable/round_button"
+        android:padding="10dp"
         android:text="@string/last_quote"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/QuoteTextView"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shareButton"
         tools:ignore="RtlHardcoded,SmallSp" />
+
 
 
 </android.support.constraint.ConstraintLayout>
