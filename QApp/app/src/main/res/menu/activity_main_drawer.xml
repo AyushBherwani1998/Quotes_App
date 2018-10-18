@@ -26,10 +26,13 @@
                 <item
                     android:id="@+id/favourtieQuotes"
                     android:title="@string/favourite_quotes"/>
+                <item
+                    android:id="@+id/wittyQuotes"
+                    android:title="@string/witty_quotes"/>
             </group>
         </menu>
     </item>
-    <item android:title="Others">
+    <item android:title="@string/others">
         <menu>
             <group>
                 <item

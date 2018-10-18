@@ -255,6 +255,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(this,Motivational_Quotes.class));
         }else if(id == R.id.failureQuotes){
             startActivity(new Intent(this,Failure_Quotes.class));
+        }else if(id == R.id.wittyQuotes){
+            startActivity(new Intent(this,Witty_Quotes.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -304,27 +306,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void randomQuote(){
-        randomCategory = (int) (Math.random()*5);
+        randomCategory = (int) (Math.random()*6);
         switch (randomCategory){
             case 0:
-                randomIndex = (int)(Math.random()*Motivational_Quotes.motivationalQuotes.length-1);
+                randomIndex = (int)(Math.random()*Motivational_Quotes.motivationalQuotes.length);
                 mQuoteTextView.setText(Motivational_Quotes.motivationalQuotes[randomIndex]);
                 break;
             case 1:
-                randomIndex = (int)(Math.random()*Love_Quotes.LoveQuotes.length-1);
+                randomIndex = (int)(Math.random()*Love_Quotes.LoveQuotes.length);
                 mQuoteTextView.setText(Love_Quotes.LoveQuotes[randomIndex]);
                 break;
             case 2:
-                randomIndex = (int)(Math.random()*Inspiration_Quotes.InspirationalQuotes.length-1);
+                randomIndex = (int)(Math.random()*Inspiration_Quotes.InspirationalQuotes.length);
                 mQuoteTextView.setText(Inspiration_Quotes.InspirationalQuotes[randomIndex]);
                 break;
             case 3:
-                randomIndex = (int)(Math.random()*Breakup_Quotes.BreakupQuotes.length-1);
+                randomIndex = (int)(Math.random()*Breakup_Quotes.BreakupQuotes.length);
                 mQuoteTextView.setText(Breakup_Quotes.BreakupQuotes[randomIndex]);
                 break;
             case 4:
-                randomIndex = (int)(Math.random()*Friendship_Quotes.FriendShipQuotes.length-1);
+                randomIndex = (int)(Math.random()*Friendship_Quotes.FriendShipQuotes.length);
                 mQuoteTextView.setText(Friendship_Quotes.FriendShipQuotes[randomIndex]);
+                break;
+            case 5:
+                randomIndex = (int)(Math.random()*Failure_Quotes.FailureQuotes.length);
+                mQuoteTextView.setText(Failure_Quotes.FailureQuotes[randomIndex]);
                 break;
         }
     }

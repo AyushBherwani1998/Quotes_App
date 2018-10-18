@@ -33,4 +33,7 @@
     <string name="random_quote">Random Quote</string>
     <string name="title_activity_failure__quotes">Failure_Quotes</string>
     <string name="failure_quotes">Failure Quotes</string>
+    <string name="title_activity_witty__quotes">Witty_Quotes</string>
+    <string name="witty_quotes">Witty Quotes</string>
+    <string name="others">Others</string>
 </resources>
