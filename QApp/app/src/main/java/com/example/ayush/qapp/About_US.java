@@ -1,6 +1,7 @@
 package com.example.ayush.qapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class About_US extends AppCompatActivity {
@@ -10,5 +11,7 @@ public class About_US extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about__us);
+        ScrollView myScrollView = findViewById(R.id.scrollView);
+        myScrollView.setVerticalScrollBarEnabled(true);
     }
 }

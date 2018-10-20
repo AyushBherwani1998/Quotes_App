@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void randomQuote(){
-        randomCategory = (int) (Math.random()*6);
+        randomCategory = (int) (Math.random()*7);
         switch (randomCategory){
             case 0:
                 randomIndex = (int)(Math.random()*Motivational_Quotes.motivationalQuotes.length);
@@ -331,6 +331,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case 5:
                 randomIndex = (int)(Math.random()*Failure_Quotes.FailureQuotes.length);
                 mQuoteTextView.setText(Failure_Quotes.FailureQuotes[randomIndex]);
+                break;
+            case 6:
+                randomIndex = (int)(Math.random()*Witty_Quotes.WittyQuotes.length);
+                mQuoteTextView.setText(Witty_Quotes.WittyQuotes[randomIndex]);
                 break;
         }
     }
