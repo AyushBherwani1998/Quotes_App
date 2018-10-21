@@ -1,4 +1,4 @@
-**Quotes Hub** named as Quotes_App is an **Android Application** which provides daily quotes with more than 5 Categories.
+Quotes Hub named as Quotes_App is an **Android Application** which provides daily quotes with more than 5 Categories.
 <br>The Application has simple User Interface.
 <br>**Swipe Left**
 <br>Swipe Left for the next quote in the category.
