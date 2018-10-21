@@ -61,9 +61,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Witty_Quotes"
-            android:label= "@string/witty_quotes"
+            android:label="@string/witty_quotes"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
