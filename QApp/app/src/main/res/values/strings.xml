@@ -1,11 +1,10 @@
 <resources>
-    <string name="app_name">QApp</string>
+    <string name="app_name">Quotes Hub</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="welcome">Welcome</string>
-    <string name="quotes_app">Quotes App</string>
     <string name="motivational_quotes">Motivational Quotes</string>
     <string name="love_quotes">Love Quotes</string>
     <string name="inspirtaional_quotes">Inspirational Quotes</string>
@@ -26,8 +25,7 @@
     <string name="title_activity_favorite__quotes">Favorite_Quotes</string>
     <string name="about_me">About Me</string>
     <string name="ayush_bherwani">Ayush Bherwani</string>
-    <string name="nofavorite_text">NO QUOTES HAVE BEEN ADDED TO FAVORITES.</string>
-    <string name="opps">OPPS!!</string>
+    <string name="no_favorites">No Favorites</string>
     <string name="about">I\'m currently pursuing my Graduation fomr Parul University.I have spent last 4 years working on my developeing skills, learning and exploring new Languages and Fremworks. Currently I\'m working as a Freelancer on Fiverr as a WhiteBoard Animator. I\'m a Blockchain enthusiastic. The code for this android App can be found on my Github Respository. Feel free to play around. ThnakYou</string>
     <string name="title_activity_motivational__quotes">Motivational_Quotes</string>
     <string name="random_quote">Random Quote</string>

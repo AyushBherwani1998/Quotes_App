@@ -57,7 +57,7 @@ public class Favorite_Quotes extends AppCompatActivity {
            mNextButton.setVisibility(View.INVISIBLE);
            mShareButton.setVisibility(View.INVISIBLE);
            mLastButton.setVisibility(View.INVISIBLE);
-           mQuoteTextView.setText("OPPS!!\n"+"NO QUOTES HAVE BEEN ADDED TO FAVORITES.");
+           mQuoteTextView.setText(R.string.no_favorites);
        }
 
         constraintLayout.setOnTouchListener(new OnSwipeTouchListener(Favorite_Quotes.this){
@@ -93,7 +93,7 @@ public class Favorite_Quotes extends AppCompatActivity {
                         mNextButton.setVisibility(View.INVISIBLE);
                         mShareButton.setVisibility(View.INVISIBLE);
                         mLastButton.setVisibility(View.INVISIBLE);
-                        mQuoteTextView.setText("OPPS!!\n"+"NO QUOTES HAVE BEEN ADDED TO FAVORITES.");
+                        mQuoteTextView.setText(R.string.no_favorites);
                     }else if(!FavoriteQuotes.isEmpty() && i>=FavoriteQuotes.size()){
                         i--;
                         mQuoteTextView.setText(FavoriteQuotes.get(i));
@@ -146,7 +146,7 @@ public class Favorite_Quotes extends AppCompatActivity {
                        mNextButton.setVisibility(View.INVISIBLE);
                        mShareButton.setVisibility(View.INVISIBLE);
                        mLastButton.setVisibility(View.INVISIBLE);
-                       mQuoteTextView.setText("OPPS!!\n"+"NO QUOTES HAVE BEEN ADDED TO FAVORITES.");
+                       mQuoteTextView.setText(R.string.no_favorites);
                    }else if(!FavoriteQuotes.isEmpty() && i>=FavoriteQuotes.size()){
                        i--;
                        mQuoteTextView.setText(FavoriteQuotes.get(i));
@@ -220,7 +220,7 @@ public class Favorite_Quotes extends AppCompatActivity {
                         mNextButton.setVisibility(View.INVISIBLE);
                         mShareButton.setVisibility(View.INVISIBLE);
                         mLastButton.setVisibility(View.INVISIBLE);
-                        mQuoteTextView.setText("OPPS!!\n"+"NO QUOTES HAVE BEEN ADDED TO FAVORITES.");
+                        mQuoteTextView.setText(R.string.no_favorites);
                     }else if(!FavoriteQuotes.isEmpty() && i>=FavoriteQuotes.size()){
                         i--;
                         mQuoteTextView.setText(FavoriteQuotes.get(i));

@@ -24,11 +24,11 @@
                     android:id="@+id/failureQuotes"
                     android:title="@string/failure_quotes"/>
                 <item
-                    android:id="@+id/favourtieQuotes"
-                    android:title="@string/favourite_quotes"/>
-                <item
                     android:id="@+id/wittyQuotes"
                     android:title="@string/witty_quotes"/>
+                <item
+                    android:id="@+id/favourtieQuotes"
+                    android:title="@string/favourite_quotes"/>
             </group>
         </menu>
     </item>

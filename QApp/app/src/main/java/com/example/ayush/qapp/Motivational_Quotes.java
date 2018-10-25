@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -12,13 +13,19 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import java.util.Objects;
 
@@ -102,8 +109,10 @@ public class Motivational_Quotes extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
-        mQuoteTextView.setTypeface(roboto);
+                Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
+                mQuoteTextView.setTypeface(roboto);
+
+        mQuoteTextView.setText(motivationalQuotes[i]);
 
         constraintLayout.setOnTouchListener(new OnSwipeTouchListener(Motivational_Quotes.this){
             public void onSwipeRight() {
@@ -127,8 +136,8 @@ public class Motivational_Quotes extends AppCompatActivity {
             }
 
             public void onSwipeTop(){
-                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
-                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
+                if(!Favorite_Quotes.FavoriteQuotes.contains(motivationalQuotes[i])){
+                    Favorite_Quotes.FavoriteQuotes.addLast(motivationalQuotes[i]);
                     Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }else{
                     Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
@@ -138,7 +147,7 @@ public class Motivational_Quotes extends AppCompatActivity {
 
             public void onSwipeBottom(){
                 ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
+                ClipData clipData = ClipData.newPlainText("Copied Quote",motivationalQuotes[i]);
                 assert clipboardManager!=null;
                 clipboardManager.setPrimaryClip(clipData);
                 Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
@@ -148,6 +157,7 @@ public class Motivational_Quotes extends AppCompatActivity {
         mQuoteTextView.setText(motivationalQuotes[i]);
         mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Motivational_Quotes.this){
             public void onSwipeRight() {
+
                 if(i>0){
                     i--;
                     mQuoteTextView.setText(motivationalQuotes[i]);
@@ -158,6 +168,7 @@ public class Motivational_Quotes extends AppCompatActivity {
             }
 
             public void onSwipeLeft() {
+
                 if(i<motivationalQuotes.length-1){
                     i++;
                     mQuoteTextView.setText(motivationalQuotes[i]);
@@ -168,8 +179,8 @@ public class Motivational_Quotes extends AppCompatActivity {
             }
 
             public void onSwipeTop(){
-                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
-                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
+                if(!Favorite_Quotes.FavoriteQuotes.contains(motivationalQuotes[i])){
+                    Favorite_Quotes.FavoriteQuotes.addLast(motivationalQuotes[i]);
                     Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }else{
                     Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
@@ -179,7 +190,7 @@ public class Motivational_Quotes extends AppCompatActivity {
 
             public void onSwipeBottom(){
                 ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
+                ClipData clipData = ClipData.newPlainText("Copied Quote",motivationalQuotes[i]);
                 assert clipboardManager!=null;
                 clipboardManager.setPrimaryClip(clipData);
                 Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
@@ -191,7 +202,7 @@ public class Motivational_Quotes extends AppCompatActivity {
                 ShareCompat.IntentBuilder
                         .from(Motivational_Quotes.this)
                         .setType("text/plain")
-                        .setText(mQuoteTextView.getText().toString())
+                        .setText(motivationalQuotes[i])
                         .setChooserTitle("Share this Quote with")
                         .startChooser();
             }
@@ -200,6 +211,7 @@ public class Motivational_Quotes extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(i<motivationalQuotes.length-1){
                     i++;
                     mQuoteTextView.setText(motivationalQuotes[i]);
@@ -213,6 +225,7 @@ public class Motivational_Quotes extends AppCompatActivity {
         mLastButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(i>0){
                     i--;
                     mQuoteTextView.setText(motivationalQuotes[i]);
@@ -227,8 +240,8 @@ public class Motivational_Quotes extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
-                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
+                if(!Favorite_Quotes.FavoriteQuotes.contains(motivationalQuotes[i])){
+                    Favorite_Quotes.FavoriteQuotes.addLast(motivationalQuotes[i]);
                     Snackbar.make(view, "Added to Favorites", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }else{
