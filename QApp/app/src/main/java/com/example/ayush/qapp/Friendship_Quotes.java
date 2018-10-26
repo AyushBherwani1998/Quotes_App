@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +21,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import org.w3c.dom.Text;
 
 import java.util.Objects;
@@ -29,7 +34,6 @@ public class Friendship_Quotes extends AppCompatActivity {
     static int i=0;
     public static String FriendShipQuotes[] = {
             "The best kind of people are the ones that come into your life, and make you see the sun where you once saw clouds. The people that believe in you so much.",
-            "I think if I’ve learned anything about friendship, it’s to hang in, stay connected, fight for them, and let them fight for you. Don’t walk away, don’t be distracted, don’t be too busy or tired, don’t take them for granted. Friends are part of the glue that holds life and faith together. Powerful stuff.",
             "I value the friend who for me finds time on his calendar, but I cherish the friend who for me does not consult his calendar.",
             "The real test of friendship is can you literally do nothing with the other person? Can you enjoy those moments of life that are utterly simple?",
             "One measure of friendship consists not in the number of things friends can discuss, but in the number of things they need no longer mention. ",
@@ -84,6 +88,7 @@ public class Friendship_Quotes extends AppCompatActivity {
     Button mLastQuote;
     ImageButton mShareButton;
     TextView mQuoteTextView;
+    private AdView mAdView;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -93,6 +98,12 @@ public class Friendship_Quotes extends AppCompatActivity {
         setContentView(R.layout.activity_friendship__quotes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        MobileAds.initialize(this, "ca-app-pub-1203140157527769~6707095223");
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         mLastQuote = findViewById(R.id.lastQuoteButton);
         mNextQuote = findViewById(R.id.nextQuoteButoon);
@@ -260,8 +271,24 @@ public class Friendship_Quotes extends AppCompatActivity {
             return true;
         }
 
-        if(id == R.id.action_aboutUs) {
-            startActivity(new Intent(this, About_US.class));
+
+        if(id == R.id.action_help){
+            startActivity(new Intent(this,Help.class));
+            return true;
+        }
+
+        if(id == R.id.action_feedback){
+            String subject = "Feedback";
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            intent.putExtra(Intent.EXTRA_EMAIL,new String[]{"ayush.bherwani1998@gmail.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT,subject);
+            intent.putExtra(Intent.EXTRA_TEXT,"");
+            if(intent.resolveActivity(getPackageManager())!=null){
+                startActivity(intent);
+            }else{
+                Toast.makeText(getApplicationContext(),"No Email App Detected",Toast.LENGTH_SHORT).show();
+            }
             return true;
         }
 

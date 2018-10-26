@@ -9,23 +9,23 @@
                     android:id="@+id/motivationaQuotes"
                     android:title="@string/motivational_quotes" />
                 <item
-                    android:id="@+id/loveQuotes"
-                    android:title="@string/love_quotes" />
-                <item
                     android:id="@+id/inspirationalQutoes"
                     android:title="@string/inspirtaional_quotes" />
                 <item
-                    android:id="@+id/breakupQuotes"
-                    android:title="@string/break_quotes" />
-                <item
                     android:id="@+id/friendshipQuotes"
                     android:title="@string/friendship_quotes" />
+                <item
+                    android:id="@+id/breakupQuotes"
+                    android:title="@string/break_quotes" />
                 <item
                     android:id="@+id/failureQuotes"
                     android:title="@string/failure_quotes"/>
                 <item
                     android:id="@+id/wittyQuotes"
                     android:title="@string/witty_quotes"/>
+                <item
+                    android:id="@+id/loveQuotes"
+                    android:title="@string/love_quotes" />
                 <item
                     android:id="@+id/favourtieQuotes"
                     android:title="@string/favourite_quotes"/>
@@ -36,8 +36,11 @@
         <menu>
             <group>
                 <item
-                    android:id="@+id/aboutUs"
-                    android:title="@string/about_us"/>
+                    android:id="@+id/help"
+                    android:title="@string/help"/>
+                <item
+                    android:id="@+id/feedback"
+                    android:title="@string/feedback"/>
             </group>
         </menu>
     </item>

@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.Objects;
 
@@ -81,6 +86,8 @@ public class Failure_Quotes extends AppCompatActivity {
     ImageButton mShareButton;
     TextView mQuoteTextView;
     static int i = 0;
+    private AdView mAdView;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +95,14 @@ public class Failure_Quotes extends AppCompatActivity {
         setContentView(R.layout.activity_love__quotes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        MobileAds.initialize(this, "ca-app-pub-1203140157527769~6707095223");
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -257,8 +272,24 @@ public class Failure_Quotes extends AppCompatActivity {
             return true;
         }
 
-        if(id == R.id.action_aboutUs){
-            startActivity(new Intent(this,About_US.class));
+
+        if(id == R.id.action_help){
+            startActivity(new Intent(this,Help.class));
+            return true;
+        }
+
+        if(id == R.id.action_feedback){
+            String subject = "Feedback";
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            intent.putExtra(Intent.EXTRA_EMAIL,new String[]{"ayush.bherwani1998@gmail.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT,subject);
+            intent.putExtra(Intent.EXTRA_TEXT,"");
+            if(intent.resolveActivity(getPackageManager())!=null){
+                startActivity(intent);
+            }else{
+                Toast.makeText(getApplicationContext(),"No Email App Detected",Toast.LENGTH_SHORT).show();
+            }
             return true;
         }
 

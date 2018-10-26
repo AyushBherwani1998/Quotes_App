@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -27,6 +28,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -43,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageButton mRefreshButton;
     int randomIndex;
     int randomCategory;
+    private AdView mAdView;
 
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n"})
     @Override
@@ -50,6 +56,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Quotes Hub");
+
+
+        MobileAds.initialize(this, "ca-app-pub-1203140157527769~6707095223");
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         mShareButton = findViewById(R.id.shareButton);
         mQuoteTextView = findViewById(R.id.QuoteTextView);
@@ -221,8 +234,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
 
-        if(id == R.id.action_aboutUs){
-            startActivity(new Intent(this,About_US.class));
+        if(id == R.id.action_help){
+            startActivity(new Intent(this,Help.class));
+            return true;
+        }
+
+        if(id == R.id.action_feedback){
+            String subject = "Feedback";
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            intent.putExtra(Intent.EXTRA_EMAIL,new String[]{"ayush.bherwani1998@gmail.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT,subject);
+            intent.putExtra(Intent.EXTRA_TEXT,"");
+            if(intent.resolveActivity(getPackageManager())!=null){
+                startActivity(intent);
+            }else{
+                Toast.makeText(getApplicationContext(),"No Email App Detected",Toast.LENGTH_SHORT).show();
+            }
             return true;
         }
 
@@ -249,14 +277,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if(id == R.id.friendshipQuotes){
             startActivity(new Intent(this,Friendship_Quotes.class));
-        }else if(id == R.id.aboutUs){
-            startActivity(new Intent(this,About_US.class));
         }else if(id == R.id.motivationaQuotes){
             startActivity(new Intent(this,Motivational_Quotes.class));
         }else if(id == R.id.failureQuotes){
             startActivity(new Intent(this,Failure_Quotes.class));
         }else if(id == R.id.wittyQuotes){
             startActivity(new Intent(this,Witty_Quotes.class));
+        }else if(id == R.id.help){
+            startActivity(new Intent(this,Help.class));
+        }else if(id == R.id.feedback){
+            String subject = "Feedback";
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            intent.putExtra(Intent.EXTRA_EMAIL,new String[]{"ayush.bherwani1998@gmail.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT,subject);
+            intent.putExtra(Intent.EXTRA_TEXT,"");
+            if(intent.resolveActivity(getPackageManager())!=null){
+                startActivity(intent);
+            }else{
+                Toast.makeText(getApplicationContext(),"No Email App Detected",Toast.LENGTH_SHORT).show();
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -8,6 +8,7 @@ import android.content.Intent;
 
 import android.graphics.Typeface;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 
@@ -26,7 +27,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class Favorite_Quotes extends AppCompatActivity {
 
@@ -35,8 +44,13 @@ public class Favorite_Quotes extends AppCompatActivity {
     Button mLastButton;
     ImageButton mShareButton;
     TextView mQuoteTextView;
+    Button mExploreButton;
+    int randomCategory;
+    private InterstitialAd mInterstitialAd;
+    private AdView mAdView;
     ConstraintLayout constraintLayout;
     public static int i = 0;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +59,21 @@ public class Favorite_Quotes extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        MobileAds.initialize(this, "ca-app-pub-1203140157527769~6707095223");
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-1203140157527769/2197128284");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        mExploreButton = findViewById(R.id.exploreButton);
         mNextButton = findViewById(R.id.nextQuoteButoon);
         mQuoteTextView = findViewById(R.id.QuoteTextView);
         mLastButton = findViewById(R.id.lastQuoteButton);
@@ -57,6 +86,7 @@ public class Favorite_Quotes extends AppCompatActivity {
            mNextButton.setVisibility(View.INVISIBLE);
            mShareButton.setVisibility(View.INVISIBLE);
            mLastButton.setVisibility(View.INVISIBLE);
+           mExploreButton.setVisibility(View.VISIBLE);
            mQuoteTextView.setText(R.string.no_favorites);
        }
 
@@ -146,6 +176,7 @@ public class Favorite_Quotes extends AppCompatActivity {
                        mNextButton.setVisibility(View.INVISIBLE);
                        mShareButton.setVisibility(View.INVISIBLE);
                        mLastButton.setVisibility(View.INVISIBLE);
+                       mExploreButton.setVisibility(View.VISIBLE);
                        mQuoteTextView.setText(R.string.no_favorites);
                    }else if(!FavoriteQuotes.isEmpty() && i>=FavoriteQuotes.size()){
                        i--;
@@ -208,6 +239,36 @@ public class Favorite_Quotes extends AppCompatActivity {
            }
        });
 
+       mExploreButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               randomCategory = (int) (Math.random()*7);
+               switch (randomCategory){
+                   case 0:
+                       startActivity(new Intent(Favorite_Quotes.this,Inspiration_Quotes.class));
+                       break;
+                   case 1:
+                       startActivity(new Intent(Favorite_Quotes.this,Motivational_Quotes.class));
+                       break;
+                   case 2:
+                       startActivity(new Intent(Favorite_Quotes.this,Love_Quotes.class));
+                       break;
+                   case 3:
+                       startActivity(new Intent(Favorite_Quotes.this,Friendship_Quotes.class));
+                       break;
+                   case 4:
+                       startActivity(new Intent(Favorite_Quotes.this,Breakup_Quotes.class));
+                       break;
+                   case 5:
+                       startActivity(new Intent(Favorite_Quotes.this,Failure_Quotes.class));
+                       break;
+                   case 6:
+                       startActivity(new Intent(Favorite_Quotes.this,Witty_Quotes.class));
+                       break;
+               }
+           }
+       });
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -220,6 +281,7 @@ public class Favorite_Quotes extends AppCompatActivity {
                         mNextButton.setVisibility(View.INVISIBLE);
                         mShareButton.setVisibility(View.INVISIBLE);
                         mLastButton.setVisibility(View.INVISIBLE);
+                        mExploreButton.setVisibility(View.VISIBLE);
                         mQuoteTextView.setText(R.string.no_favorites);
                     }else if(!FavoriteQuotes.isEmpty() && i>=FavoriteQuotes.size()){
                         i--;
@@ -252,12 +314,36 @@ public class Favorite_Quotes extends AppCompatActivity {
             return true;
         }
 
-        if (id == R.id.action_aboutUs) {
-            startActivity(new Intent(this, About_US.class));
+
+        if(id == R.id.action_help){
+            startActivity(new Intent(this,Help.class));
+            return true;
+        }
+
+        if(id == R.id.action_feedback){
+            String subject = "Feedback";
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            intent.putExtra(Intent.EXTRA_EMAIL,new String[]{"ayush.bherwani1998@gmail.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT,subject);
+            intent.putExtra(Intent.EXTRA_TEXT,"");
+            if(intent.resolveActivity(getPackageManager())!=null){
+                startActivity(intent);
+            }else{
+                Toast.makeText(getApplicationContext(),"No Email App Detected",Toast.LENGTH_SHORT).show();
+            }
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
+        super.onDestroy();
     }
 }
 
