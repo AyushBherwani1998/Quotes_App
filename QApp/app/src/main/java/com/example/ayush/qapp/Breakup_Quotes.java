@@ -99,6 +99,7 @@ public class Breakup_Quotes extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         MobileAds.initialize(this, "ca-app-pub-1203140157527769~6707095223");
 
@@ -142,9 +143,9 @@ public class Breakup_Quotes extends AppCompatActivity {
             public void onSwipeTop(){
                 if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
                     Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(getWindow().getDecorView().getRootView(),"Added to Favorites",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }else{
-                    Snackbar.make(getWindow().getDecorView().getRootView(),"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }
 
             }
@@ -183,9 +184,9 @@ public class Breakup_Quotes extends AppCompatActivity {
             public void onSwipeTop(){
                 if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
                     Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(getWindow().getDecorView().getRootView(),"Added to Favorites",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }else{
-                    Snackbar.make(getWindow().getDecorView().getRootView(),"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
                 }
 
             }
@@ -237,7 +238,6 @@ public class Breakup_Quotes extends AppCompatActivity {
         });
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
