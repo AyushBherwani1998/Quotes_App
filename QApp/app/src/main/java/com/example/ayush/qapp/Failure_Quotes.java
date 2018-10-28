@@ -278,21 +278,25 @@ public class Failure_Quotes extends AppCompatActivity {
             return true;
         }
 
-        if(id == R.id.action_feedback){
+        if(id == R.id.action_feedback) {
             String subject = "Feedback";
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("mailto:"));
-            intent.putExtra(Intent.EXTRA_EMAIL,new String[]{"ayush.bherwani1998@gmail.com"});
-            intent.putExtra(Intent.EXTRA_SUBJECT,subject);
-            intent.putExtra(Intent.EXTRA_TEXT,"");
-            if(intent.resolveActivity(getPackageManager())!=null){
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"ayush.bherwani1998@gmail.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            intent.putExtra(Intent.EXTRA_TEXT, "");
+            if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
-            }else{
-                Toast.makeText(getApplicationContext(),"No Email App Detected",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "No Email App Detected", Toast.LENGTH_SHORT).show();
             }
             return true;
         }
 
+        if(id == R.id.action_rateus){
+            startActivity( new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.ayushbherwani.ayush.qapp")));
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -46,7 +46,6 @@ public class Favorite_Quotes extends AppCompatActivity {
     TextView mQuoteTextView;
     Button mExploreButton;
     int randomCategory;
-    private InterstitialAd mInterstitialAd;
     private AdView mAdView;
     ConstraintLayout constraintLayout;
     public static int i = 0;
@@ -64,10 +63,6 @@ public class Favorite_Quotes extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-1203140157527769/2197128284");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -335,16 +330,14 @@ public class Favorite_Quotes extends AppCompatActivity {
             return true;
         }
 
+        if(id == R.id.action_rateus){
+            startActivity( new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.ayushbherwani.ayush.qapp")));
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onDestroy() {
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        }
-        super.onDestroy();
-    }
 }
 
 

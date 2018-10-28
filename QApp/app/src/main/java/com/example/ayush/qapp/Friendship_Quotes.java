@@ -292,6 +292,11 @@ public class Friendship_Quotes extends AppCompatActivity {
             return true;
         }
 
+        if(id == R.id.action_rateus){
+            startActivity( new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.ayushbherwani.ayush.qapp")));
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }

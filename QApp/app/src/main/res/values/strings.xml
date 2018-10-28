@@ -41,4 +41,5 @@
     <string name="swipe_up_to_add_quote_to_the_favorites_or_delete_quote_from_favorites">Swipe up to add Quote to the Favorites OR Delete Quote from Favorites</string>
     <string name="swipe_down">Swipe Down</string>
     <string name="swipe_down_to_copy_the_quote_to_the_clipboard">Swipe down to copy the Quote to the Clipboard</string>
+    <string name="rate_us">Rate Us</string>
 </resources>

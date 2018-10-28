@@ -117,7 +117,9 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="8dp"
+        android:paddingEnd="8dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"

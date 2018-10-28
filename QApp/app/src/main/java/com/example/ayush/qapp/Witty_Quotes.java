@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.Objects;
@@ -64,6 +66,7 @@ public class Witty_Quotes extends AppCompatActivity {
     ImageButton mShareButton;
     TextView mQuoteTextView;
     static int i = 0;
+    private InterstitialAd mInterstitialAd;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,10 @@ public class Witty_Quotes extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-1203140157527769/2197128284");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         mNextQuote = findViewById(R.id.nextQuoteButoon);
         mLastQuote = findViewById(R.id.lastQuoteButton);
@@ -266,12 +273,24 @@ public class Witty_Quotes extends AppCompatActivity {
             }
             return true;
         }
+        if(id == R.id.action_rateus){
+            startActivity( new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.ayushbherwani.ayush.qapp")));
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
     public void displayToast(String message){
         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
+        super.onDestroy();
     }
 
 
