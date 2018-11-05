@@ -13,6 +13,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
 import android.view.Gravity;
@@ -36,12 +38,7 @@ import java.util.Objects;
 
 public class Motivational_Quotes extends AppCompatActivity {
 
-    private AdView mAdView;
-    ImageView mShareButton;
-    TextView mQuoteTextView;
-    Button mNextButton;
-    Button mLastButton;
-    static int i=0;
+    RecyclerView recyclerView;
     public static String motivationalQuotes[] = {
             "You must allow yourself to outgrow and depart from certain eras of your life with a gentle sort of ruthlessness",
             "I think people would be happier if they admitted things more often. In a sense we are all prisoners of some memory, or fear, or disappointment we are all defined by something we can’t change.",
@@ -105,162 +102,11 @@ public class Motivational_Quotes extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        MobileAds.initialize(this, "ca-app-pub-1203140157527769~6707095223");
-
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        mLastButton = findViewById(R.id.lastQuoteButton);
-        mNextButton = findViewById(R.id.nextQuoteButoon);
-        mShareButton =  findViewById(R.id.shareButton);
-        mQuoteTextView = findViewById(R.id.QuoteTextView);
-        ConstraintLayout constraintLayout = findViewById(R.id.mainView);
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-                Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
-                mQuoteTextView.setTypeface(roboto);
-
-        mQuoteTextView.setText(motivationalQuotes[i]);
-
-        constraintLayout.setOnTouchListener(new OnSwipeTouchListener(Motivational_Quotes.this){
-            public void onSwipeRight() {
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }else{
-                    i=motivationalQuotes.length-1;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }
-            }
-
-            public void onSwipeLeft() {
-                if(i<motivationalQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }else{
-                    i=0;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }
-            }
-
-            public void onSwipeTop(){
-                if(!Favorite_Quotes.FavoriteQuotes.contains(motivationalQuotes[i])){
-                    Favorite_Quotes.FavoriteQuotes.addLast(motivationalQuotes[i]);
-                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }else{
-                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }
-
-            }
-
-            public void onSwipeBottom(){
-                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",motivationalQuotes[i]);
-                assert clipboardManager!=null;
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mQuoteTextView.setText(motivationalQuotes[i]);
-        mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Motivational_Quotes.this){
-            public void onSwipeRight() {
-
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }else{
-                    i=motivationalQuotes.length-1;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }
-            }
-
-            public void onSwipeLeft() {
-
-                if(i<motivationalQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }else{
-                    i=0;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }
-            }
-
-            public void onSwipeTop(){
-                if(!Favorite_Quotes.FavoriteQuotes.contains(motivationalQuotes[i])){
-                    Favorite_Quotes.FavoriteQuotes.addLast(motivationalQuotes[i]);
-                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }else{
-                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }
-
-            }
-
-            public void onSwipeBottom(){
-                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",motivationalQuotes[i]);
-                assert clipboardManager!=null;
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
-            }
-        });
-        mShareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShareCompat.IntentBuilder
-                        .from(Motivational_Quotes.this)
-                        .setType("text/plain")
-                        .setText(motivationalQuotes[i])
-                        .setChooserTitle("Share this Quote with")
-                        .startChooser();
-            }
-        });
-
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(i<motivationalQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }else {
-                    i=0;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }
-            }
-        });
-
-        mLastButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }else {
-                    i=motivationalQuotes.length-1;
-                    mQuoteTextView.setText(motivationalQuotes[i]);
-                }
-            }
-        });
-
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!Favorite_Quotes.FavoriteQuotes.contains(motivationalQuotes[i])){
-                    Favorite_Quotes.FavoriteQuotes.addLast(motivationalQuotes[i]);
-                    Snackbar.make(view, "Added to Favorites", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }else{
-                    Snackbar.make(view, "Already Added to Favorites", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            }
-        });
+        recyclerView = findViewById(R.id.RecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new RecyclerViewAdapter(motivationalQuotes,this));
     }
 
     @Override
