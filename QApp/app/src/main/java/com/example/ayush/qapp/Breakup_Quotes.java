@@ -1,30 +1,29 @@
 package com.example.ayush.qapp;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
-import android.content.ClipboardManager;
+
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.content.SharedPreferences;
+
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ShareCompat;
+
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
-
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class Breakup_Quotes extends AppCompatActivity {
@@ -83,14 +82,7 @@ public class Breakup_Quotes extends AppCompatActivity {
             "I hope you’re drowning in your tears like I did. I hope you’re in agony that seems endless. I hope you feel like you’ve lost everything like I did.",
             "The fact that my absence doesn’t bother you even the slightest makes me sad to wonder if my presence ever mattered at all in the first place."
     };
-
-    Button mNextButton;
-    Button mLastButton;
-    ImageButton mShareButton;
-    TextView mQuoteTextView;
-    static  int i=0;
-    private AdView mAdView;
-
+    InterstitialAd mInterstitialAd;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,159 +90,17 @@ public class Breakup_Quotes extends AppCompatActivity {
         setContentView(R.layout.activity_breakup__quotes);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        MobileAds.initialize(this, "ca-app-pub-1203140157527769~6707095223");
-
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        mLastButton = findViewById(R.id.lastQuoteButton);
-        mNextButton = findViewById(R.id.nextQuoteButoon);
-        mShareButton =  findViewById(R.id.shareButton);
-        mQuoteTextView = findViewById(R.id.QuoteTextView);
-        ConstraintLayout constraintLayout = findViewById(R.id.mainView);
-
+        loadData();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        MobileAds.initialize(this, "ca-app-pub-1203140157527769~6707095223");
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-1203140157527769/2197128284");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
-        Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
-        mQuoteTextView.setTypeface(roboto);
-
-        constraintLayout.setOnTouchListener(new OnSwipeTouchListener(Breakup_Quotes.this){
-            public void onSwipeRight() {
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(BreakupQuotes[i]);
-                }else{
-                    i=BreakupQuotes.length-1;
-                    mQuoteTextView.setText(BreakupQuotes[i]);
-                }
-            }
-
-            public void onSwipeLeft() {
-                if(i<BreakupQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(BreakupQuotes[i]);
-                }else{
-                    i=0;
-                    mQuoteTextView.setText(BreakupQuotes[i]);
-                }
-            }
-
-            public void onSwipeTop(){
-                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
-                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }else{
-                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }
-
-            }
-
-            public void onSwipeBottom(){
-                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
-                assert clipboardManager!=null;
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mQuoteTextView.setText(BreakupQuotes[i]);
-        mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Breakup_Quotes.this){
-            public void onSwipeRight() {
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(BreakupQuotes[i]);
-                }else{
-                    i=BreakupQuotes.length-1;
-                    mQuoteTextView.setText(BreakupQuotes[i]);
-                }
-            }
-
-            public void onSwipeLeft() {
-                if(i<BreakupQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(BreakupQuotes[i]);
-                }else{
-                    i=0;
-                    mQuoteTextView.setText(BreakupQuotes[i]);
-                }
-            }
-
-            public void onSwipeTop(){
-                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
-                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }else{
-                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }
-
-            }
-
-            public void onSwipeBottom(){
-                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
-                assert clipboardManager!=null;
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
-            }
-        });
-        mShareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShareCompat.IntentBuilder
-                .from(Breakup_Quotes.this)
-                .setType("text/plain")
-                .setText(mQuoteTextView.getText().toString())
-                .setChooserTitle("Share this Quote with")
-                .startChooser();
-            }
-        });
-
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(i<BreakupQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(BreakupQuotes[i]);
-                }else {
-                    i=0;
-                    mQuoteTextView.setText(BreakupQuotes[i]);
-                }
-            }
-        });
-
-        mLastButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(BreakupQuotes[i]);
-                }else {
-                    i=BreakupQuotes.length-1;
-                    mQuoteTextView.setText(BreakupQuotes[i]);
-                }
-            }
-        });
-
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
-                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(view, "Added to Favorites", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }else{
-                    Snackbar.make(view, "Already Added to Favorites", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            }
-        });
+        RecyclerView recyclerView = findViewById(R.id.RecyclerViewBreakupQuotes);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new RecyclerViewAdapter(BreakupQuotes,this));
     }
 
     @Override
@@ -296,5 +146,44 @@ public class Breakup_Quotes extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        ArrayList<String> arrayList = new ArrayList<String>(Favorite_Quotes.FavoriteQuotes);
+        String json = gson.toJson(arrayList);
+        editor.putString("favoriteQuotes",json);
+        editor.apply();
+    }
+
+    private void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("favoriteQuotes", null);
+        Type type = new TypeToken<ArrayList<String>>() {
+        }.getType();
+        ArrayList<String> arrayList;
+        arrayList = gson.fromJson(json, type);
+        if (arrayList == null) {
+            Favorite_Quotes.FavoriteQuotes = new LinkedList<>();
+        } else {
+            Favorite_Quotes.FavoriteQuotes = new LinkedList<>(arrayList);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveData();
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
     }
 }

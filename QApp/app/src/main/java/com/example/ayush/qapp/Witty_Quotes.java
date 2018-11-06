@@ -1,39 +1,32 @@
 package com.example.ayush.qapp;
-
 import android.annotation.SuppressLint;
-import android.content.ClipData;
-import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class Witty_Quotes extends AppCompatActivity {
 
-    private AdView mAdView;
-
-    public static String []WittyQuotes = {"A quantum supercomputer calculating for a thousand years could not even approach the number of fucks I do not give.",
+    public static String []WittyQuotes = {
+            "A quantum supercomputer calculating for a thousand years could not even approach the number of fucks I do not give.",
             "Knowledge is knowing a tomato is a fruit; Wisdom is not putting it in a fruit salad.",
             "I fear one day I’ll meet God, he’ll sneeze and I won’t know what to say.",
             "Is she naked because you love her? Or do you love her because she’s naked?",
@@ -61,177 +54,24 @@ public class Witty_Quotes extends AppCompatActivity {
             "Knowledge is knowing when someone is lying to you. Wisdom is seeing the truth in the lies.",
             "Always remember that the amount of pain we inflict on others, is directly proportionate to the amount of pain we feel within."
     };
-    Button mNextQuote;
-    Button mLastQuote;
-    ImageButton mShareButton;
-    TextView mQuoteTextView;
-    static int i = 0;
-    private InterstitialAd mInterstitialAd;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_love__quotes);
+        setContentView(R.layout.activity_witty__quotes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        loadData();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        MobileAds.initialize(this, "ca-app-pub-1203140157527769~6707095223");
+        RecyclerView recyclerView = findViewById(R.id.RecyclerViewWittyQuote);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Witty_Quotes.this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(new RecyclerViewAdapter(WittyQuotes,Witty_Quotes.this));
+        }
 
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-1203140157527769/2197128284");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-        mNextQuote = findViewById(R.id.nextQuoteButoon);
-        mLastQuote = findViewById(R.id.lastQuoteButton);
-        mShareButton = findViewById(R.id.shareButton);
-        mQuoteTextView = findViewById(R.id.QuoteTextView);
-        ConstraintLayout constraintLayout = findViewById(R.id.mainView);
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
-        mQuoteTextView.setTypeface(roboto);
-
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
-                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(view, "Added to Favorites", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }else{
-                    Snackbar.make(view, "Already Added to Favorites", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            }
-        });
-
-        mQuoteTextView.setText(WittyQuotes[i]);
-
-        constraintLayout.setOnTouchListener(new OnSwipeTouchListener(Witty_Quotes.this){
-            public void onSwipeRight() {
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(WittyQuotes[i]);
-                }else{
-                    i=WittyQuotes.length-1;
-                    mQuoteTextView.setText(WittyQuotes[i]);
-                }
-            }
-
-            public void onSwipeLeft() {
-                if(i<WittyQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(WittyQuotes[i]);
-                }else{
-                    i=0;
-                    mQuoteTextView.setText(WittyQuotes[i]);
-                }
-            }
-
-            public void onSwipeTop(){
-                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
-                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }else{
-                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }
-
-            }
-
-            public void onSwipeBottom(){
-                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
-                assert clipboardManager!=null;
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Witty_Quotes.this){
-            public void onSwipeRight() {
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(WittyQuotes[i]);
-                }else{
-                    i=WittyQuotes.length-1;
-                    mQuoteTextView.setText(WittyQuotes[i]);
-                }
-            }
-
-            public void onSwipeLeft() {
-                if(i<WittyQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(WittyQuotes[i]);
-                }else{
-                    i=0;
-                    mQuoteTextView.setText(WittyQuotes[i]);
-                }
-            }
-
-            public void onSwipeTop(){
-                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
-                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }else{
-                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }
-
-            }
-
-            public void onSwipeBottom(){
-                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
-                assert clipboardManager!=null;
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mNextQuote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(i<WittyQuotes.length-1){
-                    i+=1;
-                    mQuoteTextView.setText(WittyQuotes[i]);
-                }else{
-                    i=0;
-                    mQuoteTextView.setText(WittyQuotes[i]);
-                }
-            }
-        });
-
-
-        mLastQuote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(WittyQuotes[i]);
-                }else if(i==0){
-                    i=WittyQuotes.length-1;
-                    mQuoteTextView.setText(WittyQuotes[i]);
-                }
-            }
-        });
-
-        mShareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShareCompat.IntentBuilder.from(Witty_Quotes.this)
-                        .setType("text/plain")
-                        .setText(mQuoteTextView.getText().toString())
-                        .setChooserTitle("Share this Quote with")
-                        .startChooser();
-            }
-        });
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -281,17 +121,39 @@ public class Witty_Quotes extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void displayToast(String message){
-        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+    private void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        ArrayList<String> arrayList = new ArrayList<String>(Favorite_Quotes.FavoriteQuotes);
+        String json = gson.toJson(arrayList);
+        editor.putString("favoriteQuotes",json);
+        editor.apply();
+    }
+
+    private void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("favoriteQuotes",null);
+        Type type = new TypeToken<ArrayList<String>>(){}.getType();
+        ArrayList<String> arrayList;
+        arrayList = gson.fromJson(json,type);
+        if( arrayList == null){
+            Favorite_Quotes.FavoriteQuotes = new LinkedList<>();
+        }else{
+            Favorite_Quotes.FavoriteQuotes = new LinkedList<>(arrayList);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveData();
     }
 
     @Override
     protected void onDestroy() {
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        }
         super.onDestroy();
+        saveData();
     }
-
-
 }

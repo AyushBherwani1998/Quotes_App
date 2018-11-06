@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -33,7 +34,12 @@ import android.widget.ViewSwitcher;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class Motivational_Quotes extends AppCompatActivity {
@@ -101,6 +107,7 @@ public class Motivational_Quotes extends AppCompatActivity {
         setContentView(R.layout.activity_motivational__quotes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        loadData();
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -154,4 +161,39 @@ public class Motivational_Quotes extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        ArrayList<String> arrayList = new ArrayList<String>(Favorite_Quotes.FavoriteQuotes);
+        String json = gson.toJson(arrayList);
+        editor.putString("favoriteQuotes",json);
+        editor.apply();
+    }
+
+    private void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("favoriteQuotes",null);
+        Type type = new TypeToken<ArrayList<String>>(){}.getType();
+        ArrayList<String> arrayList;
+        arrayList = gson.fromJson(json,type);
+        if( arrayList == null){
+            Favorite_Quotes.FavoriteQuotes = new LinkedList<>();
+        }else{
+            Favorite_Quotes.FavoriteQuotes = new LinkedList<>(arrayList);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveData();
+    }
 }
