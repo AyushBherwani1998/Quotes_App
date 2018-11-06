@@ -343,6 +343,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         saveData();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveData();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveData();
+    }
+
     private void applyFontToMenuItem(MenuItem mi) {
         Typeface font = Typeface.createFromAsset(getAssets(), "font/Roboto-Medium.ttf");
         SpannableString mNewTitle = new SpannableString(mi.getTitle());

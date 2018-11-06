@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -94,7 +95,7 @@ public class Friendship_Quotes extends AppCompatActivity {
 
 
 
-
+    InterstitialAd mInterstitialAd;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +106,11 @@ public class Friendship_Quotes extends AppCompatActivity {
         loadData();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        MobileAds.initialize(this, "ca-app-pub-1203140157527769~6707095223");
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-1203140157527769/2197128284");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
         RecyclerView recyclerView = findViewById(R.id.RecyclerViewFriendshipQuotes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerViewAdapter(FriendShipQuotes,this));
@@ -123,6 +129,7 @@ public class Friendship_Quotes extends AppCompatActivity {
 
         if(id == R.id.action_favorite){
             startActivity(new Intent(this,Favorite_Quotes.class));
+            finish();
             return true;
         }
 
@@ -183,6 +190,9 @@ public class Friendship_Quotes extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         saveData();
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
     }
 
     @Override

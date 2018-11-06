@@ -1,5 +1,7 @@
 package com.example.ayush.qapp;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -63,6 +65,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     holder.favoriteButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
                     Toast.makeText(context,"Deleted From Favorites",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        holder.textView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Copied Quote",data[position]);
+                assert clipboardManager!=null;
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(context,"Copied to Clipboard",Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
         if(position >lastPosition) {

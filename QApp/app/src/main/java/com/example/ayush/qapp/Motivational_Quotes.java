@@ -129,6 +129,7 @@ public class Motivational_Quotes extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_favorite) {
             startActivity(new Intent(this,Favorite_Quotes.class));
+            finish();
             return true;
         }
 
