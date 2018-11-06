@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -24,14 +27,19 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class Friendship_Quotes extends AppCompatActivity {
 
-    static int i=0;
+
     public static String FriendShipQuotes[] = {
             "The best kind of people are the ones that come into your life, and make you see the sun where you once saw clouds. The people that believe in you so much.",
             "I value the friend who for me finds time on his calendar, but I cherish the friend who for me does not consult his calendar.",
@@ -84,11 +92,7 @@ public class Friendship_Quotes extends AppCompatActivity {
             "Sometimes when you see a person cry, it’s better not to ask why. Sometimes it takes only three words to make them happy again. And those three words are “I am here.“"
     };
 
-    Button mNextQuote;
-    Button mLastQuote;
-    ImageButton mShareButton;
-    TextView mQuoteTextView;
-    private AdView mAdView;
+
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -98,162 +102,13 @@ public class Friendship_Quotes extends AppCompatActivity {
         setContentView(R.layout.activity_friendship__quotes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        MobileAds.initialize(this, "ca-app-pub-1203140157527769~6707095223");
-
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        mLastQuote = findViewById(R.id.lastQuoteButton);
-        mNextQuote = findViewById(R.id.nextQuoteButoon);
-        mShareButton = findViewById(R.id.shareButton);
-        mQuoteTextView = findViewById(R.id.QuoteTextView);
-        ConstraintLayout constraintLayout = findViewById(R.id.mainView);
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        mQuoteTextView.setText(FriendShipQuotes[i]);
-
+        loadData();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        RecyclerView recyclerView = findViewById(R.id.RecyclerViewFriendshipQuotes);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new RecyclerViewAdapter(FriendShipQuotes,this));
 
-        Typeface roboto = Typeface.createFromAsset(getAssets(), "font/Oswald-Medium.ttf");
-        mQuoteTextView.setTypeface(roboto);
-
-        constraintLayout.setOnTouchListener(new OnSwipeTouchListener(Friendship_Quotes.this){
-            public void onSwipeRight() {
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(FriendShipQuotes[i]);
-                }else{
-                    i=FriendShipQuotes.length-1;
-                    mQuoteTextView.setText(FriendShipQuotes[i]);
-                }
-            }
-
-            public void onSwipeLeft() {
-                if(i<FriendShipQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(FriendShipQuotes[i]);
-                }else{
-                    i=0;
-                    mQuoteTextView.setText(FriendShipQuotes[i]);
-                }
-            }
-
-            public void onSwipeTop(){
-                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
-                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }else{
-                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG);
-                }
-
-            }
-
-            public void onSwipeBottom(){
-                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
-                assert clipboardManager!=null;
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mQuoteTextView.setOnTouchListener(new OnSwipeTouchListener(Friendship_Quotes.this){
-            public void onSwipeRight() {
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(FriendShipQuotes[i]);
-                }else{
-                    i=FriendShipQuotes.length-1;
-                    mQuoteTextView.setText(FriendShipQuotes[i]);
-                }
-            }
-
-            public void onSwipeLeft() {
-                if(i<FriendShipQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(FriendShipQuotes[i]);
-                }else{
-                    i=0;
-                    mQuoteTextView.setText(FriendShipQuotes[i]);
-                }
-            }
-
-            public void onSwipeTop(){
-                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
-                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(fab,"Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }else{
-                    Snackbar.make(fab,"Already Added to Favorites",Snackbar.LENGTH_LONG).show();
-                }
-
-            }
-
-            public void onSwipeBottom(){
-                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",mQuoteTextView.getText().toString());
-                assert clipboardManager!=null;
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(getApplicationContext(),"Copied to Clipboard",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mShareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShareCompat.IntentBuilder
-                        .from(Friendship_Quotes.this)
-                        .setChooserTitle("Share this Quote with")
-                        .setType("text/plain")
-                        .setText(mQuoteTextView.getText().toString())
-                        .startChooser();
-            }
-        });
-
-        mNextQuote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(i<FriendShipQuotes.length-1){
-                    i++;
-                    mQuoteTextView.setText(FriendShipQuotes[i]);
-                }else{
-                    i=0;
-                    mQuoteTextView.setText(FriendShipQuotes[i]);
-                }
-            }
-        });
-
-        mLastQuote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(i>0){
-                    i--;
-                    mQuoteTextView.setText(FriendShipQuotes[i]);
-                }else {
-                    i= FriendShipQuotes.length-1;
-                    mQuoteTextView.setText(FriendShipQuotes[i]);
-                }
-            }
-        });
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!Favorite_Quotes.FavoriteQuotes.contains(mQuoteTextView.getText().toString())){
-                    Favorite_Quotes.FavoriteQuotes.addLast(mQuoteTextView.getText().toString());
-                    Snackbar.make(view, "Added to Favorites", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }else{
-                    Snackbar.make(view, "Already Added to Favorites", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            }
-        });
-    }
-
-    public void displayToast(String message){
-        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -298,5 +153,41 @@ public class Friendship_Quotes extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        ArrayList<String> arrayList = new ArrayList<String>(Favorite_Quotes.FavoriteQuotes);
+        String json = gson.toJson(arrayList);
+        editor.putString("favoriteQuotes",json);
+        editor.apply();
+    }
+
+    private void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("favoriteQuotes", null);
+        Type type = new TypeToken<ArrayList<String>>() {
+        }.getType();
+        ArrayList<String> arrayList;
+        arrayList = gson.fromJson(json, type);
+        if (arrayList == null) {
+            Favorite_Quotes.FavoriteQuotes = new LinkedList<>();
+        } else {
+            Favorite_Quotes.FavoriteQuotes = new LinkedList<>(arrayList);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveData();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveData();
     }
 }
