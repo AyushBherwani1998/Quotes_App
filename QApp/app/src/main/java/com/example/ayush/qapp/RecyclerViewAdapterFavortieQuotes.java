@@ -59,7 +59,12 @@ public class RecyclerViewAdapterFavortieQuotes extends RecyclerView.Adapter<Recy
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.recycelerview_animation);
             holder.itemView.startAnimation(animation);
             lastPosition = position;
+        }else{
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.down_from_top);
+            holder.itemView.startAnimation(animation);
+            lastPosition = position;
         }
+
         holder.textView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -80,6 +85,12 @@ public class RecyclerViewAdapterFavortieQuotes extends RecyclerView.Adapter<Recy
         if(data.isEmpty()){
             Favorite_Quotes.mExploreButton.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(RecyclerViewHolderFavorite holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.itemView.clearAnimation();
     }
 
     @Override

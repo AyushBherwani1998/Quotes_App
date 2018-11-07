@@ -68,6 +68,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
 
+
         holder.textView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -84,8 +85,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.recycelerview_animation);
             holder.itemView.startAnimation(animation);
             lastPosition = position;
+        }else{
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.down_from_top);
+            holder.itemView.startAnimation(animation);
+            lastPosition = position;
         }
 
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(RecyclerViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.itemView.clearAnimation();
     }
 
     @Override
