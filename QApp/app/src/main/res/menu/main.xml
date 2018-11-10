@@ -10,8 +10,11 @@
     <item
         android:id="@+id/action_help"
         android:title="@string/help"
-        android:orderInCategory="80"
-        />
+        android:orderInCategory="80" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="50"
+        android:title="Settings"/>
     <item
         android:id="@+id/action_feedback"
         android:orderInCategory="90"

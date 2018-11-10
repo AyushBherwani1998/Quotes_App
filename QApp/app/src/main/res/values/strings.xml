@@ -42,4 +42,13 @@
     <string name="swipe_down">Swipe Down</string>
     <string name="swipe_down_to_copy_the_quote_to_the_clipboard">Swipe down to copy the Quote to the Clipboard</string>
     <string name="rate_us">Rate Us</string>
+    <string name="solid_color">Solid Color</string>
+    <string name="choose_a_solid_color_as_a_theme">Choose a solid color as a theme</string>
+    <string name="theme_library">Theme Library</string>
+    <string name="choose_a_theme_from_the_library">Choose a theme from the library</string>
+    <string name="text_size">Text Size</string>
+    <string name="change_text_size_of_the_quote">Change text size of the quote</string>
+    <string name="default_theme">Default Theme</string>
+    <string name="apply_the_default_theme">Apply the default theme</string>
+    <string name="theme">Theme</string>
 </resources>
