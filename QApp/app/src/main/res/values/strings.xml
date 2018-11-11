@@ -38,7 +38,7 @@
     <string name="swipe_right">Swipe Right</string>
     <string name="swipe_right_for_the_previous_quote">Swipe right for the previous Quote</string>
     <string name="swipe_up">Swipe Up</string>
-    <string name="swipe_up_to_add_quote_to_the_favorites_or_delete_quote_from_favorites">Swipe up to add Quote to the Favorites OR Delete Quote from Favorites</string>
+    <string name="swipe_up_to_add_quote_to_the_favorites_or_delete_quote_from_favorites">Swipe up to add Quote to the Favorites</string>
     <string name="swipe_down">Swipe Down</string>
     <string name="swipe_down_to_copy_the_quote_to_the_clipboard">Swipe down to copy the Quote to the Clipboard</string>
     <string name="rate_us">Rate Us</string>
@@ -51,4 +51,12 @@
     <string name="default_theme">Default Theme</string>
     <string name="apply_the_default_theme">Apply the default theme</string>
     <string name="theme">Theme</string>
+    <string-array name="textsize_array">
+        <item>default</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+    </string-array>
 </resources>

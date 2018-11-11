@@ -6,4 +6,24 @@
     <color name="P_Light">#8187ff</color>
     <color name="snackbarcolor">#3FFF</color>
     <color name="black">#000000</color>
+    <color name="color1">#008B8B</color>
+    <color name="color2">#00FF00</color>
+    <color name="color3">#48D1CC</color>
+    <color name="color4">#556B2F</color>
+    <color name="color5">#AB47BC</color>
+    <color name="color6">#B8860B</color>
+    <color name="color7">#8FBC8F</color>
+    <color name="color8">#AFEEEE</color>
+    <color name="color9">#673AB7</color>
+    <color name="color10">#BDB76B</color>
+    <color name="color11">#D8BFD8</color>
+    <color name="color12">#DEB887</color>
+    <color name="color13">#FFFF00</color>
+    <color name="color14">#FFF0F5</color>
+    <color name="color15">#EE82EE</color>
+    <color name="color16">#DC143C</color>
+    <color name="color17">#C0C0C0</color>
+    <color name="color18">#424242</color>
+    <color name="color19">#00E5FF</color>
+
 </resources>

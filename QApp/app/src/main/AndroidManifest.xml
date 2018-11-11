@@ -22,7 +22,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Love_Quotes"
             android:label="@string/love_quotes"
@@ -76,10 +76,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Settings"
+        <activity
+            android:name=".Settings"
             android:label="Settings"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".solidColors"
+            android:label="Solid Colors"
+            android:parentActivityName=".Settings"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ThemeLibrary"></activity>
     </application>
 
 </manifest>
