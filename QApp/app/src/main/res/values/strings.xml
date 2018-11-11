@@ -32,15 +32,6 @@
     <string name="feedback">Feedback</string>
     <string name="help">Help</string>
     <string name="explore">EXPLORE</string>
-    <string name="gestures">Gestures</string>
-    <string name="swipe_left">Swipe Left</string>
-    <string name="swipe_left_for_the_next_quote">Swipe left for the next Quote</string>
-    <string name="swipe_right">Swipe Right</string>
-    <string name="swipe_right_for_the_previous_quote">Swipe right for the previous Quote</string>
-    <string name="swipe_up">Swipe Up</string>
-    <string name="swipe_up_to_add_quote_to_the_favorites_or_delete_quote_from_favorites">Swipe up to add Quote to the Favorites</string>
-    <string name="swipe_down">Swipe Down</string>
-    <string name="swipe_down_to_copy_the_quote_to_the_clipboard">Swipe down to copy the Quote to the Clipboard</string>
     <string name="rate_us">Rate Us</string>
     <string name="solid_color">Solid Color</string>
     <string name="choose_a_solid_color_as_a_theme">Choose a solid color as a theme</string>
@@ -51,6 +42,15 @@
     <string name="default_theme">Default Theme</string>
     <string name="apply_the_default_theme">Apply the default theme</string>
     <string name="theme">Theme</string>
+    <string name="swipe_right_left">Swipe Right / Left</string>
+    <string name="swipe_right_for_previous_quote_and_swipe_left_for_next_quote">Swipe right for previous quote and swipe left for next quote</string>
+    <string name="swipe_up">Swipe Up</string>
+    <string name="swipe_up_to_add_in_favorites">Swipe up to add in favorites</string>
+    <string name="swipe_down">Swipe Down</string>
+    <string name="swipe_down_to_copy_the_quote">Swipe down to copy the quote</string>
+    <string name="other_categories">Other Categories</string>
+    <string name="long_press_the_quote_to_copy">Long press the quote to copy</string>
+    <string name="long_press">Long Press</string>
     <string-array name="textsize_array">
         <item>default</item>
         <item>15</item>

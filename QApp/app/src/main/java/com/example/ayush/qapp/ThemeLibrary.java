@@ -11,15 +11,16 @@ import android.widget.Toast;
 public class ThemeLibrary extends AppCompatActivity {
     GridView mThemeLibrary;
     int theme[]={
-            R.drawable.android_beach,R.drawable.android_beach_two,R.drawable.android_five,R.drawable.android_four,R.drawable.android_three,
-            R.drawable.android_two,R.drawable.android_one,R.drawable.android_six,R.drawable.android_stars,R.drawable.galaxy,R.drawable.iii
+            R.drawable.android_beach_two,R.drawable.android_five,R.drawable.android_four,R.drawable.android_three,R.drawable.android_stars,
+            R.drawable.android_two,R.drawable.android_one,R.drawable.android_six,R.drawable.galaxy,R.drawable.iii,R.drawable.android_leaves,
+            R.drawable.android_beach
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme_library2);
         mThemeLibrary = findViewById(R.id.grid_view_themeLibrary);
-        mThemeLibrary.setAdapter(new GridViewAdapter(this,theme));
+        mThemeLibrary.setAdapter(new GridViewImageAdapter(this,theme));
         mThemeLibrary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

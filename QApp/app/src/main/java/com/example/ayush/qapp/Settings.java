@@ -62,6 +62,7 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Settings.this,ThemeLibrary.class));
+                Toast.makeText(getApplicationContext(),"Loading Themes",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -69,6 +70,7 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Settings.this,ThemeLibrary.class));
+                Toast.makeText(getApplicationContext(),"Loading Themes",Toast.LENGTH_SHORT).show();
             }
         });
 
