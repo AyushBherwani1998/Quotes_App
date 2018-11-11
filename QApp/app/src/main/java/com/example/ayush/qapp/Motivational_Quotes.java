@@ -45,6 +45,8 @@ import java.util.Objects;
 public class Motivational_Quotes extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    ConstraintLayout constraintLayout;
+
     public static String motivationalQuotes[] = {
             "You must allow yourself to outgrow and depart from certain eras of your life with a gentle sort of ruthlessness",
             "I think people would be happier if they admitted things more often. In a sense we are all prisoners of some memory, or fear, or disappointment we are all defined by something we can’t change.",
@@ -111,9 +113,12 @@ public class Motivational_Quotes extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        constraintLayout = findViewById(R.id.constraintLayout);
+        constraintLayout.setBackgroundResource(Settings.backgroundId);
         recyclerView = findViewById(R.id.RecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerViewAdapter(motivationalQuotes,this));
+
     }
 
     @Override
@@ -173,6 +178,8 @@ public class Motivational_Quotes extends AppCompatActivity {
 
     private void loadData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("Settings",MODE_PRIVATE);
+        Settings.backgroundId = preferences.getInt("backgroundId",R.color.default_color);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("favoriteQuotes",null);
         Type type = new TypeToken<ArrayList<String>>(){}.getType();

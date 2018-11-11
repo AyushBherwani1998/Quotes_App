@@ -11,14 +11,15 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
     int len;
     String data[];
-    Context context;
-    int lastPosition=-1;
-    public RecyclerViewAdapter(String[] data, Context context){
+    private Context context;
+    private int lastPosition=-1;
+    RecyclerViewAdapter(String[] data, Context context){
         this.data = data;
         this.context = context;
     }
@@ -34,6 +35,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, final int position) {
         holder.textView.setText(data[position]);
         final String q = data[position];
+
+        if(Settings.backgroundId != R.color.default_color){
+          holder.linearLayout.setBackgroundResource(R.drawable.textview_for_background);
+        }else{
+            holder.linearLayout.setBackgroundResource(R.drawable.rounded_text);
+        }
         if(!Favorite_Quotes.FavoriteQuotes.contains(q)){
             holder.favoriteButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
         }else
@@ -65,13 +72,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             }
         });
+
         if(position >lastPosition) {
 
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.recycelerview_animation);
             holder.itemView.startAnimation(animation);
             lastPosition = position;
+        }else{
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.down_from_top);
+            holder.itemView.startAnimation(animation);
+            lastPosition = position;
         }
 
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(RecyclerViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.itemView.clearAnimation();
     }
 
     @Override
@@ -83,8 +101,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageButton shareButton;
         ImageButton favoriteButton;
         TextView textView;
+        LinearLayout linearLayout;
         public RecyclerViewHolder(View itemView) {
             super(itemView);
+            linearLayout = itemView.findViewById(R.id.linearLayout);
             shareButton = itemView.findViewById(R.id.shareButton);
             textView = itemView.findViewById(R.id.textView);
             favoriteButton = itemView.findViewById(R.id.favoriteButton);

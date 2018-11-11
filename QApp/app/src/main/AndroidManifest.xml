@@ -86,7 +86,10 @@
             android:label="Solid Colors"
             android:parentActivityName=".Settings"
             android:screenOrientation="portrait" />
-        <activity android:name=".ThemeLibrary"></activity>
+        <activity android:name=".ThemeLibrary"
+            android:label="Theme Library"
+            android:parentActivityName=".Settings"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
