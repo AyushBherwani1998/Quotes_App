@@ -11,8 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 
-
-
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,6 +37,7 @@ public class Favorite_Quotes extends AppCompatActivity {
     int randomCategory;
     public  static Button mExploreButton;
     public static LinkedList<String> FavoriteQuotes;
+    ConstraintLayout constraintLayout;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,9 @@ public class Favorite_Quotes extends AppCompatActivity {
         mExploreButton = findViewById(R.id.exploreButton);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        constraintLayout = findViewById(R.id.constraintLayout);
+        constraintLayout.setBackgroundResource(Settings.backgroundId);
         RecyclerView recyclerView = findViewById(R.id.RecyclerViewFavorite);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerViewAdapterFavortieQuotes( FavoriteQuotes,this));
@@ -113,7 +116,11 @@ public class Favorite_Quotes extends AppCompatActivity {
             startActivity(new Intent(this,Help.class));
             return true;
         }
-
+        if(id == R.id.action_settings){
+            startActivity(new Intent(Favorite_Quotes.this,Settings.class));
+            finish();
+            return true;
+        }
         if(id == R.id.action_feedback){
             String subject = "Feedback";
             Intent intent = new Intent(Intent.ACTION_SENDTO);
@@ -149,6 +156,9 @@ public class Favorite_Quotes extends AppCompatActivity {
 
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("Settings",MODE_PRIVATE);
+        Settings.backgroundId = preferences.getInt("backgroundId",R.color.default_color);
+        Settings.textSize = preferences.getInt("textSize",14);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("favoriteQuotes", null);
         Type type = new TypeToken<ArrayList<String>>() {

@@ -19,8 +19,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Love_Quotes"
             android:label="@string/love_quotes"
@@ -69,10 +68,23 @@
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Settings"
+            android:label="@string/settings"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".solidColors"
+            android:label="Solid Colors"
+            android:parentActivityName=".Settings"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ThemeLibrary"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Settings"
+            android:label="Theme Library"/>
     </application>
 
 </manifest>

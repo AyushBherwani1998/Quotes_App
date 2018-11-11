@@ -8,10 +8,13 @@
         android:icon="@drawable/ic_favorite_black_24dp"
         app:showAsAction="ifRoom" />
     <item
+        android:orderInCategory="50"
+        android:title="@string/settings"
+        android:id="@+id/action_settings" />
+    <item
         android:id="@+id/action_help"
         android:title="@string/help"
-        android:orderInCategory="80"
-        />
+        android:orderInCategory="80" />
     <item
         android:id="@+id/action_feedback"
         android:orderInCategory="90"

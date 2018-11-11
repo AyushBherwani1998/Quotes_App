@@ -40,7 +40,7 @@ import java.util.Objects;
 
 public class Friendship_Quotes extends AppCompatActivity {
 
-
+    ConstraintLayout constraintLayout;
     public static String FriendShipQuotes[] = {
             "The best kind of people are the ones that come into your life, and make you see the sun where you once saw clouds. The people that believe in you so much.",
             "I value the friend who for me finds time on his calendar, but I cherish the friend who for me does not consult his calendar.",
@@ -111,6 +111,8 @@ public class Friendship_Quotes extends AppCompatActivity {
         mInterstitialAd.setAdUnitId("ca-app-pub-1203140157527769/2197128284");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
+        constraintLayout = findViewById(R.id.constraintLayout);
+        constraintLayout.setBackgroundResource(Settings.backgroundId);
         RecyclerView recyclerView = findViewById(R.id.RecyclerViewFriendshipQuotes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerViewAdapter(FriendShipQuotes,this));
@@ -138,7 +140,11 @@ public class Friendship_Quotes extends AppCompatActivity {
             startActivity(new Intent(this,Help.class));
             return true;
         }
-
+        if(id == R.id.action_settings){
+            startActivity(new Intent(Friendship_Quotes.this,Settings.class));
+            finish();
+            return true;
+        }
         if(id == R.id.action_feedback){
             String subject = "Feedback";
             Intent intent = new Intent(Intent.ACTION_SENDTO);
@@ -173,6 +179,9 @@ public class Friendship_Quotes extends AppCompatActivity {
 
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("Settings",MODE_PRIVATE);
+        Settings.backgroundId = preferences.getInt("backgroundId",R.color.default_color);
+        Settings.textSize = preferences.getInt("textSize",14);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("favoriteQuotes", null);
         Type type = new TypeToken<ArrayList<String>>() {

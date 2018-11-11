@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,9 +21,9 @@ import java.util.LinkedList;
 public class RecyclerViewAdapterFavortieQuotes extends RecyclerView.Adapter<RecyclerViewAdapterFavortieQuotes.RecyclerViewHolderFavorite> {
     int len;
     LinkedList<String> data;
-    Context context;
-    int lastPosition=-1;
-    public RecyclerViewAdapterFavortieQuotes(LinkedList<String> data, Context context){
+    private Context context;
+    private int lastPosition=-1;
+    RecyclerViewAdapterFavortieQuotes(LinkedList<String> data, Context context){
         this.data = data;
         this.context = context;
     }
@@ -38,6 +39,12 @@ public class RecyclerViewAdapterFavortieQuotes extends RecyclerView.Adapter<Recy
     public void onBindViewHolder(@NonNull final RecyclerViewHolderFavorite holder, int position) {
         final int q =position;
         holder.textView.setText(data.get(position));
+        holder.textView.setTextSize(Settings.textSize);
+        if(Settings.backgroundId != R.color.default_color){
+            holder.linearLayout.setBackgroundResource(R.drawable.trans_textview);
+        }else{
+            holder.linearLayout.setBackgroundResource(R.drawable.rounded_text);
+        }
         holder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +75,7 @@ public class RecyclerViewAdapterFavortieQuotes extends RecyclerView.Adapter<Recy
         holder.textView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(context.CLIPBOARD_SERVICE);
+                ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clipData = ClipData.newPlainText("Copied Quote",data.get(q));
                 assert clipboardManager!=null;
                 clipboardManager.setPrimaryClip(clipData);
@@ -102,11 +109,13 @@ public class RecyclerViewAdapterFavortieQuotes extends RecyclerView.Adapter<Recy
         ImageButton shareButton;
         ImageButton deleteButton;
         TextView textView;
+        LinearLayout linearLayout;
         public RecyclerViewHolderFavorite(View itemView) {
             super(itemView);
             shareButton = itemView.findViewById(R.id.shareButton);
             textView = itemView.findViewById(R.id.textView);
             deleteButton = itemView.findViewById(R.id.deleteButton);
+            linearLayout = itemView.findViewById(R.id.linearLayout);
         }
     }
 }

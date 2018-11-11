@@ -3,7 +3,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="settings">Settings</string>
     <string name="welcome">Welcome</string>
     <string name="motivational_quotes">Motivational Quotes</string>
     <string name="love_quotes">Love Quotes</string>
@@ -32,14 +32,31 @@
     <string name="feedback">Feedback</string>
     <string name="help">Help</string>
     <string name="explore">EXPLORE</string>
-    <string name="gestures">Gestures For Random Quote</string>
-    <string name="swipe_left">Swipe Left or Right</string>
-    <string name="swipe_left_for_the_next_quote">Swipe left/right for the next Quote and previous Quotes</string>
+    <string name="gestures">Gestures</string>
+    <string name="swipe_left">Swipe Left</string>
+    <string name="swipe_left_for_the_next_quote">Swipe left for the next Quote</string>
+    <string name="swipe_right">Swipe Right</string>
+    <string name="swipe_right_for_the_previous_quote">Swipe right for the previous Quote</string>
     <string name="swipe_up">Swipe Up</string>
     <string name="swipe_up_to_add_quote_to_the_favorites_or_delete_quote_from_favorites">Swipe up to add Quote to the Favorites</string>
     <string name="swipe_down">Swipe Down</string>
     <string name="swipe_down_to_copy_the_quote_to_the_clipboard">Swipe down to copy the Quote to the Clipboard</string>
     <string name="rate_us">Rate Us</string>
-    <string name="long_press_on_quote_to_copy_in_other_categories">Long press on Quote to copy</string>
-    <string name="other_categories">Other Categories</string>
+    <string name="solid_color">Solid Color</string>
+    <string name="choose_a_solid_color_as_a_theme">Choose a solid color as a theme</string>
+    <string name="theme_library">Theme Library</string>
+    <string name="choose_a_theme_from_the_library">Choose a theme from the library</string>
+    <string name="text_size">Text Size</string>
+    <string name="change_text_size_of_the_quote">Change text size of the quote</string>
+    <string name="default_theme">Default Theme</string>
+    <string name="apply_the_default_theme">Apply the default theme</string>
+    <string name="theme">Theme</string>
+    <string-array name="textsize_array">
+        <item>default</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+    </string-array>
 </resources>

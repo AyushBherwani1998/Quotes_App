@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,7 @@ import java.util.Objects;
 
 public class Breakup_Quotes extends AppCompatActivity {
 
+    ConstraintLayout constraintLayout;
     public static String BreakupQuotes[] = {
             "She was an incomplete human yet a complete catastrophe, one that I curse and crave.",
             "First best is falling in love. Second best is being in love. Least best is falling out of love. But any of it is better than never having been in love.",
@@ -98,6 +100,8 @@ public class Breakup_Quotes extends AppCompatActivity {
         mInterstitialAd.setAdUnitId("ca-app-pub-1203140157527769/2197128284");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
+        constraintLayout = findViewById(R.id.constraintLayout);
+        constraintLayout.setBackgroundResource(Settings.backgroundId);
         RecyclerView recyclerView = findViewById(R.id.RecyclerViewBreakupQuotes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerViewAdapter(BreakupQuotes,this));
@@ -140,7 +144,11 @@ public class Breakup_Quotes extends AppCompatActivity {
             }
             return true;
         }
-
+        if(id == R.id.action_settings){
+            startActivity(new Intent(Breakup_Quotes.this,Settings.class));
+            finish();
+            return true;
+        }
         if(id == R.id.action_rateus){
             startActivity( new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.ayushbherwani.ayush.qapp")));
             return true;
@@ -160,6 +168,9 @@ public class Breakup_Quotes extends AppCompatActivity {
 
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("Settings",MODE_PRIVATE);
+        Settings.backgroundId = preferences.getInt("backgroundId",R.color.default_color);
+        Settings.textSize = preferences.getInt("textSize",14);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("favoriteQuotes", null);
         Type type = new TypeToken<ArrayList<String>>() {

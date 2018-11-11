@@ -43,7 +43,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 public class Motivational_Quotes extends AppCompatActivity {
-
+    ConstraintLayout constraintLayout;
     RecyclerView recyclerView;
     public static String motivationalQuotes[] = {
             "You must allow yourself to outgrow and depart from certain eras of your life with a gentle sort of ruthlessness",
@@ -111,6 +111,9 @@ public class Motivational_Quotes extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        constraintLayout = findViewById(R.id.constraintLayout);
+        constraintLayout.setBackgroundResource(Settings.backgroundId);
         recyclerView = findViewById(R.id.RecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerViewAdapter(motivationalQuotes,this));
@@ -154,6 +157,12 @@ public class Motivational_Quotes extends AppCompatActivity {
             return true;
         }
 
+        if(id == R.id.action_settings){
+            startActivity(new Intent(Motivational_Quotes.this,Settings.class));
+            finish();
+            return true;
+        }
+
         if(id == R.id.action_rateus){
             startActivity( new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.ayushbherwani.ayush.qapp")));
             return true;
@@ -174,6 +183,9 @@ public class Motivational_Quotes extends AppCompatActivity {
 
     private void loadData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("Settings",MODE_PRIVATE);
+        Settings.backgroundId = preferences.getInt("backgroundId",R.color.default_color);
+        Settings.textSize = preferences.getInt("textSize",14);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("favoriteQuotes",null);
         Type type = new TypeToken<ArrayList<String>>(){}.getType();

@@ -238,7 +238,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(this,Help.class));
             return true;
         }
-
         if(id == R.id.action_feedback){
             String subject = "Feedback";
             Intent intent = new Intent(Intent.ACTION_SENDTO);
@@ -253,12 +252,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             return true;
         }
-
+        if(id == R.id.action_settings){
+            startActivity(new Intent(MainActivity.this,Settings.class));
+        }
         if(id == R.id.action_rateus){
             startActivity( new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.ayushbherwani.ayush.qapp")));
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -325,6 +325,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void loadData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("Settings",MODE_PRIVATE);
+        Settings.backgroundId = preferences.getInt("backgroundId",R.color.default_color);
+        Settings.textSize = preferences.getInt("textSize",14);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("favoriteQuotes",null);
         Type type = new TypeToken<ArrayList<String>>(){}.getType();
