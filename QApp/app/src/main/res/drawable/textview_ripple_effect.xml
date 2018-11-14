@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple
+<<<<<<< HEAD
 android:color="#2979FF"
 xmlns:android="http://schemas.android.com/apk/res/android" />
+=======
+    android:color="#2979FF"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
+>>>>>>> master

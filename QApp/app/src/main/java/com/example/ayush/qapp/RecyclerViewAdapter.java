@@ -36,9 +36,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, final int position) {
         holder.textView.setText(data[position]);
         final String q = data[position];
+<<<<<<< HEAD
         holder.textView.setTextSize(Settings.textSize);
         if(Settings.backgroundId != R.color.default_color){
             holder.linearLayout.setBackgroundResource(R.drawable.trans_textview);
+=======
+
+        if(Settings.backgroundId != R.color.default_color){
+          holder.linearLayout.setBackgroundResource(R.drawable.textview_for_background);
+>>>>>>> master
         }else{
             holder.linearLayout.setBackgroundResource(R.drawable.rounded_text);
         }
@@ -74,6 +80,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
 
+<<<<<<< HEAD
 
         holder.textView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -86,6 +93,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 return true;
             }
         });
+=======
+>>>>>>> master
         if(position >lastPosition) {
 
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.recycelerview_animation);
@@ -117,6 +126,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         LinearLayout linearLayout;
         public RecyclerViewHolder(View itemView) {
             super(itemView);
+            linearLayout = itemView.findViewById(R.id.linearLayout);
             shareButton = itemView.findViewById(R.id.shareButton);
             textView = itemView.findViewById(R.id.textView);
             favoriteButton = itemView.findViewById(R.id.favoriteButton);
