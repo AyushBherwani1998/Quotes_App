@@ -26,11 +26,8 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
         setContentView(R.layout.activity_settings2);
-=======
-        setContentView(R.layout.activity_settings);
->>>>>>> master
+
 
         spinner = findViewById(R.id.spinner);
         mSolidColors = findViewById(R.id.solidColor);
@@ -66,10 +63,8 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Settings.this,ThemeLibrary.class));
-<<<<<<< HEAD
                 Toast.makeText(getApplicationContext(),"Loading Themes",Toast.LENGTH_SHORT).show();
-=======
->>>>>>> master
+
             }
         });
 
@@ -77,10 +72,9 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Settings.this,ThemeLibrary.class));
-<<<<<<< HEAD
                 Toast.makeText(getApplicationContext(),"Loading Themes",Toast.LENGTH_SHORT).show();
-=======
->>>>>>> master
+
+
             }
         });
 
@@ -148,8 +142,5 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         super.onPause();
         saveData();
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master
+
