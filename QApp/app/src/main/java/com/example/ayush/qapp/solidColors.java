@@ -20,11 +20,9 @@ public class solidColors extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
+
         setContentView(R.layout.activity_solid_colors2);
-=======
-        setContentView(R.layout.activity_solid_colors);
->>>>>>> master
+
         mSolidColorGridView = findViewById(R.id.grid_view_solidColors);
         mSolidColorGridView.setAdapter(new GridViewAdapter(this,solidColors));
         mSolidColorGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,7 +52,4 @@ public class solidColors extends AppCompatActivity {
         saveData();
     }
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> master

@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayout"
     android:padding="6dp"
     android:id="@+id/linearLayout"
     android:layout_marginStart="8dp"

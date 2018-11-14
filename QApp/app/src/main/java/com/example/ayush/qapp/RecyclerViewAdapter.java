@@ -36,101 +36,93 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, final int position) {
         holder.textView.setText(data[position]);
         final String q = data[position];
-<<<<<<< HEAD
+
         holder.textView.setTextSize(Settings.textSize);
-        if(Settings.backgroundId != R.color.default_color){
+        if (Settings.backgroundId != R.color.default_color) {
             holder.linearLayout.setBackgroundResource(R.drawable.trans_textview);
-=======
-
-        if(Settings.backgroundId != R.color.default_color){
-          holder.linearLayout.setBackgroundResource(R.drawable.textview_for_background);
->>>>>>> master
-        }else{
-            holder.linearLayout.setBackgroundResource(R.drawable.rounded_text);
         }
-        if(!Favorite_Quotes.FavoriteQuotes.contains(q)){
-            holder.favoriteButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
-        }else
-            holder.favoriteButton.setImageResource(R.drawable.ic_favorite_red_24dp);
+            if (!Favorite_Quotes.FavoriteQuotes.contains(q)) {
+                holder.favoriteButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            } else
+                holder.favoriteButton.setImageResource(R.drawable.ic_favorite_red_24dp);
 
-        holder.shareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT,data[position]);
-                intent.setType("text/plain");
-                context.startActivity(Intent.createChooser(intent,"Share this Quote with"));
-            }
-        });
-
-        holder.favoriteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!Favorite_Quotes.FavoriteQuotes.contains(q)){
-                    Favorite_Quotes.FavoriteQuotes.addLast(q);
-                    holder.favoriteButton.animate().rotation(360).start();
-                    holder.favoriteButton.setImageResource(R.drawable.ic_favorite_red_24dp);
-                    Toast.makeText(context,"Added To Favorites",Toast.LENGTH_SHORT).show();
-                }else {
-                    Favorite_Quotes.FavoriteQuotes.remove(q);
-                    holder.favoriteButton.animate().rotation(-360).start();
-                    holder.favoriteButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
-                    Toast.makeText(context,"Deleted From Favorites",Toast.LENGTH_SHORT).show();
+            holder.shareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.putExtra(Intent.EXTRA_TEXT, data[position]);
+                    intent.setType("text/plain");
+                    context.startActivity(Intent.createChooser(intent, "Share this Quote with"));
                 }
+            });
+
+            holder.favoriteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!Favorite_Quotes.FavoriteQuotes.contains(q)) {
+                        Favorite_Quotes.FavoriteQuotes.addLast(q);
+                        holder.favoriteButton.animate().rotation(360).start();
+                        holder.favoriteButton.setImageResource(R.drawable.ic_favorite_red_24dp);
+                        Toast.makeText(context, "Added To Favorites", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Favorite_Quotes.FavoriteQuotes.remove(q);
+                        holder.favoriteButton.animate().rotation(-360).start();
+                        holder.favoriteButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                        Toast.makeText(context, "Deleted From Favorites", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+
+            holder.textView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clipData = ClipData.newPlainText("Copied Quote", data[position]);
+                    assert clipboardManager != null;
+                    clipboardManager.setPrimaryClip(clipData);
+                    Toast.makeText(context, "Copied to Clipboard", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            });
+
+            if (position > lastPosition) {
+
+                Animation animation = AnimationUtils.loadAnimation(context, R.anim.recycelerview_animation);
+                holder.itemView.startAnimation(animation);
+                lastPosition = position;
+            } else {
+                Animation animation = AnimationUtils.loadAnimation(context, R.anim.down_from_top);
+                holder.itemView.startAnimation(animation);
+                lastPosition = position;
             }
-        });
 
-<<<<<<< HEAD
-
-        holder.textView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clipData = ClipData.newPlainText("Copied Quote",data[position]);
-                assert clipboardManager!=null;
-                clipboardManager.setPrimaryClip(clipData);
-                Toast.makeText(context,"Copied to Clipboard",Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
-=======
->>>>>>> master
-        if(position >lastPosition) {
-
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.recycelerview_animation);
-            holder.itemView.startAnimation(animation);
-            lastPosition = position;
-        }else{
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.down_from_top);
-            holder.itemView.startAnimation(animation);
-            lastPosition = position;
         }
 
-    }
+        @Override
+        public void onViewDetachedFromWindow (RecyclerViewHolder holder){
+            super.onViewDetachedFromWindow(holder);
+            holder.itemView.clearAnimation();
+        }
 
-    @Override
-    public void onViewDetachedFromWindow(RecyclerViewHolder holder) {
-        super.onViewDetachedFromWindow(holder);
-        holder.itemView.clearAnimation();
-    }
+        @Override
+        public int getItemCount () {
+            return data.length;
+        }
 
-    @Override
-    public int getItemCount() {
-        return data.length;
-    }
+        public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+            ImageButton shareButton;
+            ImageButton favoriteButton;
+            TextView textView;
+            LinearLayout linearLayout;
 
-    public class RecyclerViewHolder extends RecyclerView.ViewHolder{
-        ImageButton shareButton;
-        ImageButton favoriteButton;
-        TextView textView;
-        LinearLayout linearLayout;
-        public RecyclerViewHolder(View itemView) {
-            super(itemView);
-            linearLayout = itemView.findViewById(R.id.linearLayout);
-            shareButton = itemView.findViewById(R.id.shareButton);
-            textView = itemView.findViewById(R.id.textView);
-            favoriteButton = itemView.findViewById(R.id.favoriteButton);
-            linearLayout =  itemView.findViewById(R.id.linearLayout);
+            public RecyclerViewHolder(View itemView) {
+                super(itemView);
+                linearLayout = itemView.findViewById(R.id.linearLayout);
+                shareButton = itemView.findViewById(R.id.shareButton);
+                textView = itemView.findViewById(R.id.textView);
+                favoriteButton = itemView.findViewById(R.id.favoriteButton);
+                linearLayout = itemView.findViewById(R.id.linearLayout);
+            }
         }
     }
-}

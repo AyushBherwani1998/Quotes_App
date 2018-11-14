@@ -15,9 +15,6 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-1203140157527769~6707095223" />
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".MainActivity"
@@ -76,20 +73,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name=".Settings"
-            android:label="@string/settings"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".solidColors"
-            android:label="Solid Colors"
-            android:parentActivityName=".Settings"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ThemeLibrary"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".Settings"
-            android:label="Theme Library"/>
-=======
         <activity
             android:name=".Settings"
             android:label="Settings"
@@ -104,7 +87,6 @@
             android:label="Theme Library"
             android:parentActivityName=".Settings"
             android:screenOrientation="portrait"/>
->>>>>>> master
     </application>
 
 </manifest>
