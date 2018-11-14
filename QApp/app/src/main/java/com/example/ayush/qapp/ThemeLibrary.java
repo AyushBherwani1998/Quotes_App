@@ -12,7 +12,7 @@ public class ThemeLibrary extends AppCompatActivity {
     GridView mThemeLibrary;
     int theme[]={
             R.drawable.android_beach_two,R.drawable.android_five,R.drawable.android_four,R.drawable.android_three,R.drawable.android_stars,
-            R.drawable.android_two,R.drawable.android_one,R.drawable.android_six,R.drawable.galaxy,R.drawable.iii,R.drawable.android_leaves,
+            R.drawable.android_two,R.drawable.android_one,R.drawable.android_six,R.drawable.iii,R.drawable.android_leaves,
             R.drawable.android_beach
     };
     @Override
@@ -20,6 +20,7 @@ public class ThemeLibrary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme_library2);
         mThemeLibrary = findViewById(R.id.grid_view_themeLibrary);
+        float density = this.getResources().getDisplayMetrics().density;
         mThemeLibrary.setAdapter(new GridViewImageAdapter(this,theme));
         mThemeLibrary.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
