@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linearLayout"
     android:padding="6dp"
-    android:id="@+id/linearLayout"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
     android:layout_marginTop="8dp"
@@ -14,11 +13,11 @@
 
     <ImageButton
         android:padding="6dp"
-        android:id="@+id/favoriteButton"
+        android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#0000"
-        app:srcCompat="@drawable/ic_favorite_border_black_24dp" />
+        app:srcCompat="@drawable/delete" />
 
     <TextView
         android:paddingLeft="10dp"

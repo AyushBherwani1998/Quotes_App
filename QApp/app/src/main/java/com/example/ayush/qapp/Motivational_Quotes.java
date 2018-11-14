@@ -43,7 +43,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 public class Motivational_Quotes extends AppCompatActivity {
-
+    ConstraintLayout constraintLayout;
     RecyclerView recyclerView;
     ConstraintLayout constraintLayout;
 
@@ -113,6 +113,10 @@ public class Motivational_Quotes extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
         constraintLayout = findViewById(R.id.constraintLayout);
         constraintLayout.setBackgroundResource(Settings.backgroundId);
         recyclerView = findViewById(R.id.RecyclerView);
@@ -134,6 +138,7 @@ public class Motivational_Quotes extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_favorite) {
             startActivity(new Intent(this,Favorite_Quotes.class));
+            finish();
             return true;
         }
 
@@ -155,6 +160,12 @@ public class Motivational_Quotes extends AppCompatActivity {
             }else{
                 Toast.makeText(getApplicationContext(),"No Email App Detected",Toast.LENGTH_SHORT).show();
             }
+            return true;
+        }
+
+        if(id == R.id.action_settings){
+            startActivity(new Intent(Motivational_Quotes.this,Settings.class));
+            finish();
             return true;
         }
 
@@ -180,6 +191,10 @@ public class Motivational_Quotes extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences preferences = getSharedPreferences("Settings",MODE_PRIVATE);
         Settings.backgroundId = preferences.getInt("backgroundId",R.color.default_color);
+<<<<<<< HEAD
+        Settings.textSize = preferences.getInt("textSize",14);
+=======
+>>>>>>> master
         Gson gson = new Gson();
         String json = sharedPreferences.getString("favoriteQuotes",null);
         Type type = new TypeToken<ArrayList<String>>(){}.getType();

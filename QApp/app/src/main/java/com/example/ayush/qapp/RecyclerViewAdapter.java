@@ -1,5 +1,7 @@
 package com.example.ayush.qapp;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -15,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
-    int len;
     String data[];
     private Context context;
     private int lastPosition=-1;
@@ -35,9 +36,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, final int position) {
         holder.textView.setText(data[position]);
         final String q = data[position];
+<<<<<<< HEAD
+        holder.textView.setTextSize(Settings.textSize);
+        if(Settings.backgroundId != R.color.default_color){
+            holder.linearLayout.setBackgroundResource(R.drawable.trans_textview);
+=======
 
         if(Settings.backgroundId != R.color.default_color){
           holder.linearLayout.setBackgroundResource(R.drawable.textview_for_background);
+>>>>>>> master
         }else{
             holder.linearLayout.setBackgroundResource(R.drawable.rounded_text);
         }
@@ -73,6 +80,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
 
+<<<<<<< HEAD
+
+        holder.textView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("Copied Quote",data[position]);
+                assert clipboardManager!=null;
+                clipboardManager.setPrimaryClip(clipData);
+                Toast.makeText(context,"Copied to Clipboard",Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+=======
+>>>>>>> master
         if(position >lastPosition) {
 
             Animation animation = AnimationUtils.loadAnimation(context, R.anim.recycelerview_animation);
@@ -108,6 +130,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             shareButton = itemView.findViewById(R.id.shareButton);
             textView = itemView.findViewById(R.id.textView);
             favoriteButton = itemView.findViewById(R.id.favoriteButton);
+            linearLayout =  itemView.findViewById(R.id.linearLayout);
         }
     }
 }
