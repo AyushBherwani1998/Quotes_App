@@ -5,6 +5,7 @@
     <color name="colorAccent">#D50000</color>
     <color name="P_Light">#8187ff</color>
     <color name="snackbarcolor">#3FFF</color>
+    <color name="default_color">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="color1">#008B8B</color>
     <color name="color2">#00FF00</color>
@@ -26,4 +27,8 @@
     <color name="color18">#424242</color>
     <color name="color19">#00E5FF</color>
 
+<<<<<<< HEAD
 </resources>
+=======
+</resources>
+>>>>>>> master

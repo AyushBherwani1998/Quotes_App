@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +25,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 public class Witty_Quotes extends AppCompatActivity {
-
+    ConstraintLayout constraintLayout;
     public static String []WittyQuotes = {
             "A quantum supercomputer calculating for a thousand years could not even approach the number of fucks I do not give.",
             "Knowledge is knowing a tomato is a fruit; Wisdom is not putting it in a fruit salad.",
@@ -66,6 +67,8 @@ public class Witty_Quotes extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        constraintLayout = findViewById(R.id.constraintLayout);
+        constraintLayout.setBackgroundResource(Settings.backgroundId);
         RecyclerView recyclerView = findViewById(R.id.RecyclerViewWittyQuote);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(Witty_Quotes.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -90,12 +93,18 @@ public class Witty_Quotes extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_favorite) {
             startActivity(new Intent(this,Favorite_Quotes.class));
+            finish();
             return true;
         }
 
 
         if(id == R.id.action_help){
             startActivity(new Intent(this,Help.class));
+            return true;
+        }
+        if(id == R.id.action_settings){
+            startActivity(new Intent(Witty_Quotes.this,Settings.class));
+            finish();
             return true;
         }
 
@@ -133,6 +142,9 @@ public class Witty_Quotes extends AppCompatActivity {
 
     private void loadData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("Settings",MODE_PRIVATE);
+        Settings.backgroundId = preferences.getInt("backgroundId",R.color.default_color);
+        Settings.textSize = preferences.getInt("textSize",14);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("favoriteQuotes",null);
         Type type = new TypeToken<ArrayList<String>>(){}.getType();

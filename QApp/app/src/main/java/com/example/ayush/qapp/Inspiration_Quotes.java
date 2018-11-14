@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +23,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 public class Inspiration_Quotes extends AppCompatActivity {
-
+    ConstraintLayout constraintLayout;
     RecyclerView recyclerView;
 
     public static String InspirationalQuotes[] = {
@@ -92,6 +93,8 @@ public class Inspiration_Quotes extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        constraintLayout = findViewById(R.id.constraintLayout);
+        constraintLayout.setBackgroundResource(Settings.backgroundId);
         recyclerView =  findViewById(R.id.RecyclerViewInspirationalQuotes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerViewAdapter(InspirationalQuotes,this));
@@ -116,6 +119,7 @@ public class Inspiration_Quotes extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_favorite) {
             startActivity(new Intent(this,Favorite_Quotes.class));
+            finish();
             return true;
         }
 
@@ -139,7 +143,11 @@ public class Inspiration_Quotes extends AppCompatActivity {
             }
             return true;
         }
-
+        if(id == R.id.action_settings){
+            startActivity(new Intent(Inspiration_Quotes.this,Settings.class));
+            finish();
+            return true;
+        }
         if(id == R.id.action_rateus){
             startActivity( new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.ayushbherwani.ayush.qapp")));
             return true;
@@ -160,6 +168,9 @@ public class Inspiration_Quotes extends AppCompatActivity {
 
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("Settings",MODE_PRIVATE);
+        Settings.backgroundId = preferences.getInt("backgroundId",R.color.default_color);
+        Settings.textSize = preferences.getInt("textSize",14);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("favoriteQuotes", null);
         Type type = new TypeToken<ArrayList<String>>() {

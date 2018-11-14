@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,7 +40,7 @@ import java.util.Objects;
 
 public class Friendship_Quotes extends AppCompatActivity {
 
-
+    ConstraintLayout constraintLayout;
     public static String FriendShipQuotes[] = {
             "The best kind of people are the ones that come into your life, and make you see the sun where you once saw clouds. The people that believe in you so much.",
             "I value the friend who for me finds time on his calendar, but I cherish the friend who for me does not consult his calendar.",
@@ -94,7 +95,7 @@ public class Friendship_Quotes extends AppCompatActivity {
 
 
 
-
+    InterstitialAd mInterstitialAd;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +106,13 @@ public class Friendship_Quotes extends AppCompatActivity {
         loadData();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        MobileAds.initialize(this, "ca-app-pub-1203140157527769~6707095223");
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-1203140157527769/2197128284");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        constraintLayout = findViewById(R.id.constraintLayout);
+        constraintLayout.setBackgroundResource(Settings.backgroundId);
         RecyclerView recyclerView = findViewById(R.id.RecyclerViewFriendshipQuotes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerViewAdapter(FriendShipQuotes,this));
@@ -123,6 +131,7 @@ public class Friendship_Quotes extends AppCompatActivity {
 
         if(id == R.id.action_favorite){
             startActivity(new Intent(this,Favorite_Quotes.class));
+            finish();
             return true;
         }
 
@@ -131,7 +140,11 @@ public class Friendship_Quotes extends AppCompatActivity {
             startActivity(new Intent(this,Help.class));
             return true;
         }
-
+        if(id == R.id.action_settings){
+            startActivity(new Intent(Friendship_Quotes.this,Settings.class));
+            finish();
+            return true;
+        }
         if(id == R.id.action_feedback){
             String subject = "Feedback";
             Intent intent = new Intent(Intent.ACTION_SENDTO);
@@ -166,6 +179,9 @@ public class Friendship_Quotes extends AppCompatActivity {
 
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("Settings",MODE_PRIVATE);
+        Settings.backgroundId = preferences.getInt("backgroundId",R.color.default_color);
+        Settings.textSize = preferences.getInt("textSize",14);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("favoriteQuotes", null);
         Type type = new TypeToken<ArrayList<String>>() {
@@ -183,6 +199,9 @@ public class Friendship_Quotes extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         saveData();
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
     }
 
     @Override

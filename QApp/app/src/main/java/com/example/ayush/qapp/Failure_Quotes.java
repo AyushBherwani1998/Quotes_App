@@ -36,6 +36,8 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 public class Failure_Quotes extends AppCompatActivity {
+
+    ConstraintLayout constraintLayout;
     public static String FailureQuotes[]={
             "If you have made serious mistakes, there is always another chance for you. What we call failure is not the falling down, but the staying down.",
             "Breathe. It’s only a bad day, not a bad life.",
@@ -101,6 +103,8 @@ public class Failure_Quotes extends AppCompatActivity {
         loadData();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        constraintLayout = findViewById(R.id.constraintLayout);
+        constraintLayout.setBackgroundResource(Settings.backgroundId);
         RecyclerView recyclerView = findViewById(R.id.RecyclerViewFailureQuotes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerViewAdapter(FailureQuotes,this));
@@ -123,6 +127,7 @@ public class Failure_Quotes extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_favorite) {
             startActivity(new Intent(this,Favorite_Quotes.class));
+            finish();
             return true;
         }
 
@@ -147,6 +152,11 @@ public class Failure_Quotes extends AppCompatActivity {
             return true;
         }
 
+        if(id == R.id.action_settings){
+            startActivity(new Intent(Failure_Quotes.this,Settings.class));
+            finish();
+            return true;
+        }
         if(id == R.id.action_rateus){
             startActivity( new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.ayushbherwani.ayush.qapp")));
             return true;
@@ -167,6 +177,9 @@ public class Failure_Quotes extends AppCompatActivity {
 
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("Settings",MODE_PRIVATE);
+        Settings.backgroundId = preferences.getInt("backgroundId",R.color.default_color);
+        Settings.textSize = preferences.getInt("textSize",14);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("favoriteQuotes", null);
         Type type = new TypeToken<ArrayList<String>>() {

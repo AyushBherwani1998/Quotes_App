@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Settings extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Spinner spinner;
@@ -19,16 +20,26 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
     TextView mSolidColorsSub;
     TextView mThemeLibrarySub;
     TextView mThemeLibrary;
+    TextView mDefaultTheme;
+    TextView mDefaultThemeSub;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
+        setContentView(R.layout.activity_settings2);
+=======
         setContentView(R.layout.activity_settings);
+>>>>>>> master
 
         spinner = findViewById(R.id.spinner);
         mSolidColors = findViewById(R.id.solidColor);
         mThemeLibrary = findViewById(R.id.ThemeLibrary);
         mSolidColorsSub = findViewById(R.id.textView14);
         mThemeLibrarySub = findViewById(R.id.textView16);
+        mDefaultTheme = findViewById(R.id.defaulTheme);
+        mDefaultThemeSub = findViewById(R.id.textView20);
+
         loadData();
 
         spinner.setOnItemSelectedListener(this);
@@ -54,7 +65,44 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         mThemeLibrary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(Settings.this,ThemeLibrary.class));
+<<<<<<< HEAD
+                Toast.makeText(getApplicationContext(),"Loading Themes",Toast.LENGTH_SHORT).show();
+=======
+>>>>>>> master
+            }
+        });
 
+        mThemeLibrarySub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Settings.this,ThemeLibrary.class));
+<<<<<<< HEAD
+                Toast.makeText(getApplicationContext(),"Loading Themes",Toast.LENGTH_SHORT).show();
+=======
+>>>>>>> master
+            }
+        });
+
+        mDefaultTheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backgroundId = R.color.default_color;
+                textSize = 14;
+                spinnerPosition = 0;
+                spinner.setSelection(spinnerPosition);
+                Toast.makeText(getApplicationContext(),"Default Theme Applied",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mDefaultThemeSub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backgroundId = R.color.default_color;
+                textSize = 14;
+                spinnerPosition = 0;
+                spinner.setSelection(spinnerPosition);
+                Toast.makeText(getApplicationContext(),"Default Theme Applied",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -78,7 +126,7 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         SharedPreferences preferences = getSharedPreferences("Settings",MODE_PRIVATE);
         spinnerPosition = preferences.getInt("spinnerPos",0);
         textSize = preferences.getInt("textSize",textSize);
-        backgroundId = preferences.getInt("backgroundId",0);
+        backgroundId = preferences.getInt("backgroundId",R.color.default_color);
     }
 
     public void saveData(){
@@ -100,4 +148,8 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         super.onPause();
         saveData();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master

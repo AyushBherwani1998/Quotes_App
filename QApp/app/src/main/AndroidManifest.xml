@@ -76,6 +76,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
+        <activity android:name=".Settings"
+            android:label="@string/settings"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".solidColors"
+            android:label="Solid Colors"
+            android:parentActivityName=".Settings"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ThemeLibrary"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".Settings"
+            android:label="Theme Library"/>
+=======
         <activity
             android:name=".Settings"
             android:label="Settings"
@@ -86,7 +100,11 @@
             android:label="Solid Colors"
             android:parentActivityName=".Settings"
             android:screenOrientation="portrait" />
-        <activity android:name=".ThemeLibrary"></activity>
+        <activity android:name=".ThemeLibrary"
+            android:label="Theme Library"
+            android:parentActivityName=".Settings"
+            android:screenOrientation="portrait"/>
+>>>>>>> master
     </application>
 
 </manifest>
