@@ -26,10 +26,6 @@ protected void onCreate(Bundle savedInstanceState){
                 mThemeLibrary=findViewById(R.id.grid_view_themeLibrary);
                 float density=this.getResources().getDisplayMetrics().density;
                 mThemeLibrary.setAdapter(new GridViewImageAdapter(this,theme));
-
-                setContentView(R.layout.activity_theme_library);
-                mThemeLibrary=findViewById(R.id.grid_view_themeLibrary);
-                mThemeLibrary.setAdapter(new GridViewAdapter(this,theme));
                 mThemeLibrary.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 @Override
 public void onItemClick(AdapterView<?> parent,View view,int position,long id){
@@ -38,8 +34,7 @@ public void onItemClick(AdapterView<?> parent,View view,int position,long id){
         }
         });
         }
-
-public void saveData(){
+        public void saveData(){
         SharedPreferences.Editor editor=getSharedPreferences("Settings",MODE_PRIVATE).edit();
         editor.putInt("backgroundId",Settings.backgroundId);
         editor.apply();

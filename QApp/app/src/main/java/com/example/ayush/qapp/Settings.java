@@ -116,6 +116,12 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public void loadData(){
         SharedPreferences preferences = getSharedPreferences("Settings",MODE_PRIVATE);
         spinnerPosition = preferences.getInt("spinnerPos",0);

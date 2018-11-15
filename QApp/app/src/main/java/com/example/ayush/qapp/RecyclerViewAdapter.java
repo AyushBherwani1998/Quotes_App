@@ -40,6 +40,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.textView.setTextSize(Settings.textSize);
         if (Settings.backgroundId != R.color.default_color) {
             holder.linearLayout.setBackgroundResource(R.drawable.trans_textview);
+        }else{
+            holder.linearLayout.setBackgroundResource(R.drawable.rounded_text);
         }
             if (!Favorite_Quotes.FavoriteQuotes.contains(q)) {
                 holder.favoriteButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
