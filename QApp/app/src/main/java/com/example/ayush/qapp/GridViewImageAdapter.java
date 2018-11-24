@@ -40,17 +40,12 @@ public class GridViewImageAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ImageView imageView;
         if(convertView==null){
-            float density = context.getResources().getDisplayMetrics().density;
             imageView = new ImageView(context);
-            if (density >= 4.0) {
-                imageView.setLayoutParams(new GridView.LayoutParams(434,600));
-            }
-            else if (density >= 3.0) {
-                imageView.setLayoutParams(new GridView.LayoutParams(325,450));
-            }
-            else {
-                imageView.setLayoutParams(new GridView.LayoutParams(217,300));
-            }
+
+            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            int width = displayMetrics.widthPixels/3 - 10;
+            int height = (int)(width*1.5);
+        imageView.setLayoutParams(new GridView.LayoutParams(width,height));
         }else{
             imageView = (ImageView) convertView;
         }

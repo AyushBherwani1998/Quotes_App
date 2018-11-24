@@ -1,6 +1,7 @@
 package com.example.ayush.qapp;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,16 +40,12 @@ public class GridViewAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(convertView==null){
             linearLayout = new LinearLayout(context);
-            float density = context.getResources().getDisplayMetrics().density;
-            if (density >= 4.0) {
-                linearLayout.setLayoutParams(new GridView.LayoutParams(434,600));
-            }
-            else if (density >= 3.0) {
-                linearLayout.setLayoutParams(new GridView.LayoutParams(325,450));
-            }
-            else {
-                linearLayout.setLayoutParams(new GridView.LayoutParams(217,300));
-            }
+
+            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            int width = displayMetrics.widthPixels/3 - 10;
+            int height = (int)(width*1.5);
+            linearLayout.setLayoutParams(new GridView.LayoutParams(width,height));
+
         }else{
             linearLayout = (LinearLayout)convertView;
         }
